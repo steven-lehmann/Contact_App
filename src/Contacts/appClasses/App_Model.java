@@ -1,5 +1,7 @@
 package Contacts.appClasses;
 
+import java.util.ArrayList;
+
 import Contacts.ServiceLocator;
 import Contacts.abstractClasses.Model;
 
@@ -11,7 +13,9 @@ import Contacts.abstractClasses.Model;
  * @author Brad Richards
  */
 public class App_Model extends Model {
-    ServiceLocator serviceLocator;
+	
+	ServiceLocator serviceLocator;
+	private static ArrayList<Contact> myContacts;
     private int value;
     
     public App_Model() {
