@@ -25,11 +25,38 @@
 .newButton{
 	-fx-font-size: 20px;
 	-fx-padding: 5;
-	
 }
 
 .groupButton{
 	-fx-font-size: 20px;
 	-fx-padding: 5;
-	
+}
+
+.contactForm{
+	-fx-hgap: 20;
+	-fx-vgap: 10;
+	-fx-alignment: right-center;
+}
+
+.lbContactForm{
+	-fx-label-padding: 5;
+	-fx-min-width: 100;
+	-fx-min-height: 50;
+}
+
+
+.txtContactForm{
+	-fx-max-width: 300;
+	-fx-max-height: 20;
+}
+
+
+.txtBirthDate{
+	-fx-max-width: 200;
+	-fx-max-height: 20;
+}
+
+.txtNotizen{
+	-fx-max-width: 300;
+	-fx-max-height: 80;
 }

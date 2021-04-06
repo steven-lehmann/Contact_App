@@ -159,6 +159,7 @@ public class App_View extends View<App_Model> {
 		   this.contactView = new BorderPane();
 		   
 		   GridPane contactCenter = new GridPane();
+		   contactCenter.getStyleClass().add("contactForm");
 		   
 		   this.toolbarContact = new ToolBar();
 		   
@@ -180,6 +181,15 @@ public class App_View extends View<App_Model> {
 		   this.lbNumber = new Label();
 		   this.lbNotizen = new Label();
 		   
+		   //CSS Verküpfung Label
+		   
+		   this.lbNName.getStyleClass().add("lbContactForm");
+		   this.lbVName.getStyleClass().add("lbContactForm");
+		   this.lbBirthDate.getStyleClass().add("lbContactForm");
+		   this.lbEmail.getStyleClass().add("lbContactForm");
+		   this.lbGroup.getStyleClass().add("lbContactForm");
+		   this.lbNumber.getStyleClass().add("lbContactForm");
+		   this.lbNotizen.getStyleClass().add("lbContactForm");
 		   
 		   //Textfelder für das Formular
 		   this.txtaNotizen = new TextArea();
@@ -191,12 +201,46 @@ public class App_View extends View<App_Model> {
 		   this.birthDate = new DatePicker();
 		   
 		   
+		   //CSS Verküpfung TextFields
+		   this.txtaNotizen.getStyleClass().add("txtNotizen");
+		   this.txtEmail.getStyleClass().add("txtContactForm");
+		   this.txtNName.getStyleClass().add("txtContactForm");
+		   this.txtNumber.getStyleClass().add("txtContactForm");
+		   this.txtVName.getStyleClass().add("txtContactForm");
+		   this.cbGroup.getStyleClass().add("txtContactForm");
+		   this.birthDate.getStyleClass().add("txtBirthDate");
 		   
+		   
+		   HBox spacer2 = new HBox();                
+		   HBox.setHgrow(spacer2, Priority.ALWAYS);
+		   
+		   
+		   this.toolbarContact.getItems().addAll(this.homeButton, spacer, 
+				   this.lbHeadingNewContact, spacer2, this.saveAndUpdateButton);
+		   
+		   contactCenter.add(this.lbVName, 0, 0);
+		   contactCenter.add(this.txtVName, 1, 0);
+		   contactCenter.add(this.lbNName, 0, 1);
+		   contactCenter.add(this.txtNName, 1, 1);
+		   contactCenter.add(this.lbNumber, 0, 2);
+		   contactCenter.add(this.txtNumber, 1, 2);
+		   contactCenter.add(this.lbBirthDate, 0, 3);
+		   contactCenter.add(this.birthDate, 1, 3);
+		   contactCenter.add(this.lbEmail, 0, 4);
+		   contactCenter.add(this.txtEmail, 1, 4);
+		   contactCenter.add(this.lbGroup, 0, 5);
+		   contactCenter.add(this.cbGroup, 1, 5);
+		   contactCenter.add(this.lbNotizen, 0, 6);
+		   contactCenter.add(this.txtaNotizen, 1, 6);
+		   
+		   
+		   this.contactView.setTop(this.toolbarContact);
+		   this.contactView.setCenter(contactCenter);
 
         
         updateTexts();
 		
-        Scene scene = new Scene(root, 450, 750);
+        Scene scene = new Scene(contactView, 450, 750);
         scene.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
         return scene;
         
@@ -213,10 +257,10 @@ public class App_View extends View<App_Model> {
 	       this.groupButton.setText(t.getString("program.toolbar.button.group"));
 	       this.newButton.setText(t.getString("program.toolbar.button.new"));
 	       
-	      // this.cbLanguage.setValue(t.getString("program.toolbar.choicebox.language"));
-	      // this.menuFile.setText(t.getString("program.menu.file"));
-	      // this.menuFileLanguage.setText(t.getString("program.menu.file.language"));
-          // this.menuHelp.setText(t.getString("program.menu.help"));
+	      //this.cbLanguage.setValue(t.getString("program.toolbar.choicebox.language"));
+	      //this.menuFile.setText(t.getString("program.menu.file"));
+	      //this.menuFileLanguage.setText(t.getString("program.menu.file.language"));
+          //this.menuHelp.setText(t.getString("program.menu.help"));
 	       
 	       this.lbNName.setText(t.getString("programm.label.contact.nname"));
 	       this.lbVName.setText(t.getString("program.label.contact.vname"));
@@ -226,7 +270,8 @@ public class App_View extends View<App_Model> {
 	       this.lbNotizen.setText(t.getString("program.label.contact.notizen"));
 	       this.lbGroup.setText(t.getString("program.label.contact.group"));
 	       this.lbHeadingNewContact.setText(t.getString("program.label.contact.heading"));
-
+	       this.cbGroup.setValue(t.getString("program.label.contact.choiceBox"));
+	       
            
            stage.setTitle(t.getString("program.name"));
 	    }
