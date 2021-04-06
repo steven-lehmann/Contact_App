@@ -9,6 +9,7 @@ import Contacts.commonClasses.Translator;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
@@ -20,6 +21,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -37,7 +39,7 @@ public class App_View extends View<App_Model> {
 	protected Button newButton, groupButton, saveAndUpdateButton, deleteButton, editButtton, homeButton;
 	
 	protected Label lbHeadingContact, lbHeadingNewContact, lbHeadingGroup,
-			lbVName, lbNName, lbNumber, lbEmail, lbBirthDate, lbNotizen, lbGroupe;
+			lbVName, lbNName, lbNumber, lbEmail, lbBirthDate, lbNotizen, lbGroup;
 	
 	//Images für Buttons
 	protected final Image ICONGROUP = new Image("/Contacts/appClasses/group.png");
@@ -57,8 +59,15 @@ public class App_View extends View<App_Model> {
 	
 	protected TextArea txtaNotizen;
 	
+	protected DatePicker birthDate;
+	
 	protected ListView contactList;
 	
+	protected BorderPane root, contactView, groupView;
+	
+	protected ToolBar toolbarMain, toolbarContact, toolbarGroup;
+	
+	//Menu für Sprachauswahl
 	//protected Menu menuFile, menuFileLanguage, menuHelp;
 
 
@@ -75,9 +84,9 @@ public class App_View extends View<App_Model> {
 	    
 	  //HomeView
 
-	    BorderPane root = new BorderPane();
+	    this.root = new BorderPane();
 	    
-	    ToolBar toolbar = new ToolBar();
+	   this.toolbarMain = new ToolBar();
 	    
 	    /*
 	    MenuBar menuBar = new MenuBar();
@@ -121,31 +130,68 @@ public class App_View extends View<App_Model> {
 	    this.contactList.getItems().add("item");
 
 	   
-	 /*   
-	 //Sprachauswahl
-     for (Locale locale : sl.getLocales()) {
-    	 	MenuItem language = new MenuItem(locale.getLanguage());
-    	 	menuFileLanguage.getItems().add(language);
-    	 	language.setOnAction( event -> {
-				sl.getConfiguration().setLocalOption("Language", locale.getLanguage());
-                sl.setTranslator(new Translator(locale.getLanguage()));
-                updateTexts();
-            });
-        }*/
-     
-	    
-	   HBox spacer = new HBox();                 // verbraucht den Platz vor dem rechten Element
-	   HBox.setHgrow(spacer, Priority.ALWAYS);
-	    
-	   toolbar.getItems().addAll(this.lbHeadingContact, spacer, this.groupButton, this.newButton);
-
-	   root.setTop(toolbar);
-
-
-	   root.setCenter(this.contactList);
-
+		 /*   
+		 //Sprachauswahl
+	     for (Locale locale : sl.getLocales()) {
+	    	 	MenuItem language = new MenuItem(locale.getLanguage());
+	    	 	menuFileLanguage.getItems().add(language);
+	    	 	language.setOnAction( event -> {
+					sl.getConfiguration().setLocalOption("Language", locale.getLanguage());
+	                sl.setTranslator(new Translator(locale.getLanguage()));
+	                updateTexts();
+	            });
+	        }*/
+	     
+		   // verbraucht den Platz vor dem rechten Element 
+		   HBox spacer = new HBox();                
+		   HBox.setHgrow(spacer, Priority.ALWAYS);
+		    
+		   this.toolbarMain.getItems().addAll(this.lbHeadingContact, spacer, this.groupButton, this.newButton);
+	
+		   this.root.setTop(this.toolbarMain);
+	
+		   this.root.setCenter(this.contactList);
 
 
+	   
+	   //View für neuen Kontakt oder Kontakt anzeigen
+	   
+		   this.contactView = new BorderPane();
+		   
+		   GridPane contactCenter = new GridPane();
+		   
+		   this.toolbarContact = new ToolBar();
+		   
+		   this.homeButton = new Button();
+		   this.homeButton.getStyleClass().add("homeButton");
+		   this.saveAndUpdateButton = new Button();
+		   this.saveAndUpdateButton.getStyleClass().add("saveButton");
+		   
+		   this.lbHeadingNewContact = new Label();
+		   this.lbHeadingNewContact.getStyleClass().add("lbHeadingContact");
+		   
+		   
+		   //Labels für das Formular
+		   this.lbNName = new Label();
+		   this.lbVName = new Label();
+		   this.lbBirthDate = new Label();
+		   this.lbEmail = new Label();
+		   this.lbGroup = new Label();
+		   this.lbNumber = new Label();
+		   this.lbNotizen = new Label();
+		   
+		   
+		   //Textfelder für das Formular
+		   this.txtaNotizen = new TextArea();
+		   this.txtEmail = new TextField();
+		   this.txtNName = new TextField();
+		   this.txtNumber = new TextField();
+		   this.txtVName = new TextField();
+		   this.cbGroup = new ChoiceBox();
+		   this.birthDate = new DatePicker();
+		   
+		   
+		   
 
         
         updateTexts();
@@ -166,11 +212,20 @@ public class App_View extends View<App_Model> {
 	       this.lbHeadingContact.setText(t.getString("program.toolbar.label.heading"));
 	       this.groupButton.setText(t.getString("program.toolbar.button.group"));
 	       this.newButton.setText(t.getString("program.toolbar.button.new"));
+	       
 	      // this.cbLanguage.setValue(t.getString("program.toolbar.choicebox.language"));
 	      // this.menuFile.setText(t.getString("program.menu.file"));
 	      // this.menuFileLanguage.setText(t.getString("program.menu.file.language"));
           // this.menuHelp.setText(t.getString("program.menu.help"));
-	        
+	       
+	       this.lbNName.setText(t.getString("programm.label.contact.nname"));
+	       this.lbVName.setText(t.getString("program.label.contact.vname"));
+	       this.lbNumber.setText(t.getString("program.label.contact.number"));
+	       this.lbBirthDate.setText(t.getString("program.label.contact.birthdate"));
+	       this.lbEmail.setText(t.getString("program.label.contact.email"));
+	       this.lbNotizen.setText(t.getString("program.label.contact.notizen"));
+	       this.lbGroup.setText(t.getString("program.label.contact.group"));
+	       this.lbHeadingNewContact.setText(t.getString("program.label.contact.heading"));
 
            
            stage.setTitle(t.getString("program.name"));
