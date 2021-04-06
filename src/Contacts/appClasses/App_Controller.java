@@ -21,12 +21,12 @@ public class App_Controller extends Controller<App_Model, App_View> {
         super(model, view);
         
      // register ourselves to listen for button clicks
-        view.btnClick.setOnAction(new EventHandler<ActionEvent>() {
+      /*  view.btnClick.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 buttonClick();
             }
-        });
+        });*/
 
         // register ourselves to handle window-closing event
         view.getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -44,6 +44,6 @@ public class App_Controller extends Controller<App_Model, App_View> {
         model.incrementValue();
         String newText = Integer.toString(model.getValue());        
 
-        view.lblNumber.setText(newText);        
+       // view.lblNumber.setText(newText);        
     }
 }

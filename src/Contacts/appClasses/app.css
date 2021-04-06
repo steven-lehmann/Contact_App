@@ -1,23 +1,35 @@
-.label {
-  -fx-font-size: 24px;
-  -fx-font-weight: bold;
-  -fx-font-style: italic;
-  -fx-text-fill: #008080;
-	-fx-border-insets: 5px;
-	-fx-border-color: black;
-	-fx-border-width: 2px;
+.center{
+	-fx-font-size: 16px;
 }
 
-.button {
-  -fx-font-size: 16px;
-  -fx-font-weight: bold;
-  -fx-font-style: italic;
-  -fx-text-fill: #000000;
+.center .list-cell:even {
+	-fx-background-color: grey;
+	-fx-text-fill: black;
 }
 
-.menu .label {
-  -fx-font-size: 12px;
-  -fx-font-weight: bold;
-  -fx-text-fill: #800080;
-  -fx-border-width: 0px;
+.center .list-cell:odd {
+	-fx-background-color: white;
+	-fx-text-fill: black;
+}
+
+.center .list-cell:selected {
+	-fx-background-color: blue;
+	-fx-text-fill: black;
+}
+
+.lbHeadingContact{
+	-fx-font-size: 30px;
+	-fx-alignment: center;
+}
+
+.newButton{
+	-fx-font-size: 20px;
+	-fx-padding: 5;
+	
+}
+
+.groupButton{
+	-fx-font-size: 20px;
+	-fx-padding: 5;
+	
 }
