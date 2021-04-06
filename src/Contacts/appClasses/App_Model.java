@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Writer;
 import java.util.ArrayList;
 
 import Contacts.ServiceLocator;
@@ -29,6 +31,7 @@ public class App_Model extends Model {
     private int value;
     
     public App_Model() {
+    	value = 0;
         serviceLocator = ServiceLocator.getServiceLocator();        
         serviceLocator.getLogger().info("Application model initialized");
         
@@ -52,7 +55,7 @@ public class App_Model extends Model {
 		}
     }
     
-    private Contact readContact(String line) {
+    private Contact readContact(String line) { //File import
 		String [] attributes = line.split(SEPARATOR);
 		String vName = attributes[0];
 		String nName = attributes[1];
@@ -60,6 +63,24 @@ public class App_Model extends Model {
 		int phoneNumber = Integer.parseInt(attributes[3]);
 		Contact contact = new Contact(vName, nName, eMail, phoneNumber);
 		return contact;
+	}
+    
+    public void saveContact() { //save Contacts in File
+    	File contactFile = new File(CONTACT_FILE);
+    	try(Writer out = new FileWriter(contactFile)) {
+    		for(Contact contact : myContacts) {
+    			String line = writeContact(contact);
+    			out.write(line);
+    		}
+    	} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+
+	private String writeContact(Contact contact) {
+		String line = contact.getvName() + SEPARATOR + contact.getvName() + 
+				contact.geteMail() + SEPARATOR + contact.getPhoneNumber() + "\n";
+		return line;
 	}
 
 	public int getValue() {
