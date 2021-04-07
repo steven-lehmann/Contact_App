@@ -35,7 +35,7 @@
 .contactForm{
 	-fx-hgap: 20;
 	-fx-vgap: 10;
-	-fx-alignment: right-center;
+	-fx-alignment: top-center;
 }
 
 .lbContactForm{
