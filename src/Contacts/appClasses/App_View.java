@@ -148,6 +148,8 @@ public class App_View extends View<App_Model> {
 		   HBox spacer = new HBox();                
 		   HBox.setHgrow(spacer, Priority.ALWAYS);
 		    
+		   
+		   //Sprachauswahl muss hinzugefügt werden
 		   this.toolbarMain.getItems().addAll(this.lbHeadingContact, spacer, this.groupButton, this.newButton);
 	
 		   this.root.setTop(this.toolbarMain);
@@ -250,11 +252,31 @@ public class App_View extends View<App_Model> {
 		   this.contactView.setTop(this.toolbarContact);
 		   this.contactView.setCenter(contactCenter);
 		   this.contactView.setBottom(this.bottomBar);
+		   
+		   
+	   //View Gruppe
+		   
+		   this.groupView = new BorderPane();
+		   
+		   this.toolbarGroup = new ToolBar();
+		   
+		   this.lbHeadingGroup = new Label();
+		   this.lbHeadingGroup.getStyleClass().add("lbHeadingGroup");
+		   
+		   //Sprachauswahl muss hinzugefügt werden
+		   this.toolbarGroup.getItems().addAll(this.homeButton, spacer, this.lbHeadingGroup, spacer2);
+		   
+		   
+		   
+		   
+		   this.groupView.setTop(this.toolbarGroup);
+		   
+		   
 
         
         updateTexts();
 		
-        Scene scene = new Scene(contactView, 450, 750);
+        Scene scene = new Scene(groupView, 450, 750);
         scene.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
         return scene;
         
@@ -267,7 +289,7 @@ public class App_View extends View<App_Model> {
 	       Translator t = ServiceLocator.getServiceLocator().getTranslator();
 	       
 	     //toolbar Text
-	       this.lbHeadingContact.setText(t.getString("program.toolbar.label.heading"));
+	       this.lbHeadingContact.setText(t.getString("program.toolbar.label.heading.contact"));
 	       this.groupButton.setText(t.getString("program.toolbar.button.group"));
 	       this.newButton.setText(t.getString("program.toolbar.button.new"));
 	       
@@ -286,9 +308,9 @@ public class App_View extends View<App_Model> {
 	       this.lbEmail.setText(t.getString("program.label.contact.email"));
 	       this.lbNotizen.setText(t.getString("program.label.contact.notizen"));
 	       this.lbGroup.setText(t.getString("program.label.contact.group"));
-	       this.lbHeadingNewContact.setText(t.getString("program.label.contact.heading"));
+	       this.lbHeadingNewContact.setText(t.getString("program.toolbar.label.heading.new"));
 	       this.cbGroup.setValue(t.getString("program.label.contact.choiceBox"));
-	       
+	       this.lbHeadingGroup.setText(t.getString("program.toolbar.label.heading.group"));
            
            stage.setTitle(t.getString("program.name"));
 	    }

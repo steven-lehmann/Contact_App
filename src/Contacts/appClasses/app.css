@@ -67,6 +67,8 @@
 	-fx-padding: 15;
 }
 
-
-
+.lbHeadingGroup{
+	-fx-font-size: 30px;
+	-fx-alignment: center;
+}
 
