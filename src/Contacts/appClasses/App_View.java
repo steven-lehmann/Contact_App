@@ -261,8 +261,11 @@ public class App_View extends View<App_Model> {
 	      //this.menuFile.setText(t.getString("program.menu.file"));
 	      //this.menuFileLanguage.setText(t.getString("program.menu.file.language"));
           //this.menuHelp.setText(t.getString("program.menu.help"));
-	       
-	       this.lbNName.setText(t.getString("programm.label.contact.nname"));
+	       this.homeButton.setText(t.getString("program.toolbar.button.home"));
+	       this.saveAndUpdateButton.setText(t.getString("program.toolbar.button.save"));
+	      // this.deleteButton.setText(t.getString("program.toolbar.button.delete"));
+	      // this.editButtton.setText(t.getString("program.toolbar.button.edit"));
+	       this.lbNName.setText(t.getString("program.label.contact.nname"));
 	       this.lbVName.setText(t.getString("program.label.contact.vname"));
 	       this.lbNumber.setText(t.getString("program.label.contact.number"));
 	       this.lbBirthDate.setText(t.getString("program.label.contact.birthdate"));
