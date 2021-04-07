@@ -60,3 +60,13 @@
 	-fx-max-width: 300;
 	-fx-max-height: 80;
 }
+
+.bottomBar{
+	-fx-spacing: 10;
+	-fx-alignment: center-right;
+	-fx-padding: 15;
+}
+
+
+
+

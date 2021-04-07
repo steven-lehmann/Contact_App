@@ -67,6 +67,8 @@ public class App_View extends View<App_Model> {
 	
 	protected ToolBar toolbarMain, toolbarContact, toolbarGroup;
 	
+	protected HBox bottomBar;
+	
 	//Menu für Sprachauswahl
 	//protected Menu menuFile, menuFileLanguage, menuHelp;
 
@@ -167,6 +169,10 @@ public class App_View extends View<App_Model> {
 		   this.homeButton.getStyleClass().add("homeButton");
 		   this.saveAndUpdateButton = new Button();
 		   this.saveAndUpdateButton.getStyleClass().add("saveButton");
+		   this.editButtton = new Button();
+		   this.editButtton.getStyleClass().add("editButton");
+		   this.deleteButton = new Button();
+		   this.deleteButton.getStyleClass().add("deleteButton");
 		   
 		   this.lbHeadingNewContact = new Label();
 		   this.lbHeadingNewContact.getStyleClass().add("lbHeadingContact");
@@ -234,8 +240,16 @@ public class App_View extends View<App_Model> {
 		   contactCenter.add(this.txtaNotizen, 1, 6);
 		   
 		   
+		   this.bottomBar = new HBox();
+		   this.bottomBar.getChildren().addAll(this.deleteButton, this.editButtton);
+		   this.bottomBar.getStyleClass().add("bottomBar");
+		   
+		   
+		   
+		   
 		   this.contactView.setTop(this.toolbarContact);
 		   this.contactView.setCenter(contactCenter);
+		   this.contactView.setBottom(this.bottomBar);
 
         
         updateTexts();
@@ -263,8 +277,8 @@ public class App_View extends View<App_Model> {
           //this.menuHelp.setText(t.getString("program.menu.help"));
 	       this.homeButton.setText(t.getString("program.toolbar.button.home"));
 	       this.saveAndUpdateButton.setText(t.getString("program.toolbar.button.save"));
-	      // this.deleteButton.setText(t.getString("program.toolbar.button.delete"));
-	      // this.editButtton.setText(t.getString("program.toolbar.button.edit"));
+	       this.deleteButton.setText(t.getString("program.toolbar.button.delete"));
+	       this.editButtton.setText(t.getString("program.toolbar.button.edit"));
 	       this.lbNName.setText(t.getString("program.label.contact.nname"));
 	       this.lbVName.setText(t.getString("program.label.contact.vname"));
 	       this.lbNumber.setText(t.getString("program.label.contact.number"));
