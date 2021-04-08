@@ -67,7 +67,7 @@ public class App_View extends View<App_Model> {
 	
 	protected DatePicker birthDate;
 	
-	protected ListView contactList;
+	protected ListView<String> contactList;
 	
 	protected BorderPane root, contactView, groupView;
 	
@@ -129,20 +129,17 @@ public class App_View extends View<App_Model> {
 	    */
 	    
 	    
-	    this.contactList = new ListView();
+	    this.contactList = new ListView<String>();
 	    this.contactList.getStyleClass().add("contactList");
 	    
 	    //Muss durch Arraylist ersetzt werden
-	    this.contactList.getItems().add("item");
-	    this.contactList.getItems().add("item");
-	    this.contactList.getItems().add("item");
-	    this.contactList.getItems().add("item");
-	    this.contactList.getItems().add("item");
-	    this.contactList.getItems().add("item");
-	    this.contactList.getItems().add("item");
-	    this.contactList.getItems().add("item");
-
-	    	   
+	    
+	   for(Contact c : super.model.treeContactList) {
+		   String Nname = c.getnName();
+		   String Vname = c.getvName();
+		   
+	   	this.contactList.getItems().add(Nname + " " + Vname);
+	    }
 		  
 		 //Sprachauswahl
 	     for (Locale locale : sl.getLocales()) {
@@ -330,7 +327,7 @@ public class App_View extends View<App_Model> {
         
         updateTexts();
 		
-        Scene scene = new Scene(root, 450, 750);
+        Scene scene = new Scene(groupView, 450, 750);
         scene.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
         return scene;
         
