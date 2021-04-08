@@ -7,8 +7,11 @@ import Contacts.ServiceLocator;
 import Contacts.abstractClasses.View;
 import Contacts.commonClasses.Translator;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -17,7 +20,9 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -36,7 +41,8 @@ import javafx.stage.Stage;
  */
 public class App_View extends View<App_Model> {
 	
-	protected Button newButton, groupButton, saveAndUpdateButton, deleteButton, editButtton, homeButton;
+	protected Button newButton, groupButton, saveAndUpdateButton, 
+			deleteButton, editButtton, homeButton, searchButton;
 	
 	protected Label lbHeadingContact, lbHeadingNewContact, lbHeadingGroup,
 			lbVName, lbNName, lbNumber, lbEmail, lbBirthDate, lbNotizen, lbGroup;
@@ -49,13 +55,13 @@ public class App_View extends View<App_Model> {
 	
 	protected ImageView iconGroup, iconAdd, iconSave, iconHome;
    
-	protected ChoiceBox cbGroup;
+	protected ComboBox cbGroup;
 	
 	//Choicebox für die Sprachauswahl
-	//protected  ChoiceBox<String> cbLanguage = new ChoiceBox();
+	protected  ChoiceBox<String> cbLanguage = new ChoiceBox<String>();
 	
 	
-	protected TextField txtVName, txtNName, txtNumber, txtEmail;
+	protected TextField txtVName, txtNName, txtNumber, txtEmail, txtSearch;
 	
 	protected TextArea txtaNotizen;
 	
@@ -67,7 +73,9 @@ public class App_View extends View<App_Model> {
 	
 	protected ToolBar toolbarMain, toolbarContact, toolbarGroup;
 	
-	protected HBox bottomBar;
+	protected HBox searchBar, bottomBar;
+	
+	protected VBox center;
 	
 	//Menu für Sprachauswahl
 	//protected Menu menuFile, menuFileLanguage, menuHelp;
@@ -95,7 +103,8 @@ public class App_View extends View<App_Model> {
 	    menuFile = new Menu();
 	    menuFileLanguage = new Menu();
 	    menuFile.getItems().add(menuFileLanguage);
-	    */   
+	     */
+	   
 
 	    this.lbHeadingContact = new Label();
 	    this.lbHeadingContact.getStyleClass().add("lbHeadingContact");
@@ -121,7 +130,7 @@ public class App_View extends View<App_Model> {
 	    
 	    
 	    this.contactList = new ListView();
-	    this.contactList.getStyleClass().add("center");
+	    this.contactList.getStyleClass().add("contactList");
 	    
 	    //Muss durch Arraylist ersetzt werden
 	    this.contactList.getItems().add("item");
@@ -130,40 +139,62 @@ public class App_View extends View<App_Model> {
 	    this.contactList.getItems().add("item");
 	    this.contactList.getItems().add("item");
 	    this.contactList.getItems().add("item");
+	    this.contactList.getItems().add("item");
+	    this.contactList.getItems().add("item");
 
-	   
-		 /*   
+	    	   
+		  
 		 //Sprachauswahl
 	     for (Locale locale : sl.getLocales()) {
-	    	 	MenuItem language = new MenuItem(locale.getLanguage());
-	    	 	menuFileLanguage.getItems().add(language);
-	    	 	language.setOnAction( event -> {
+	    	 	this.cbLanguage = new ChoiceBox();
+	    	 	this.cbLanguage.setOnAction( event -> {
 					sl.getConfiguration().setLocalOption("Language", locale.getLanguage());
 	                sl.setTranslator(new Translator(locale.getLanguage()));
 	                updateTexts();
 	            });
-	        }*/
+	        }
+	     
+	     
+	     	this.cbLanguage.getStyleClass().add("cbLanguage");
+	     	
 	     
 		   // verbraucht den Platz vor dem rechten Element 
-		   HBox spacer = new HBox();                
-		   HBox.setHgrow(spacer, Priority.ALWAYS);
+	    	HBox spacer = new HBox();                
+	    	HBox.setHgrow(spacer, Priority.ALWAYS);
 		    
-		   
+	    	HBox spacer2 = new HBox();                
+	    	HBox.setHgrow(spacer2, Priority.ALWAYS);
+	    	
+	    	
 		   //Sprachauswahl muss hinzugefügt werden
-		   this.toolbarMain.getItems().addAll(this.lbHeadingContact, spacer, this.groupButton, this.newButton);
+		   this.toolbarMain.getItems().addAll(this.cbLanguage, spacer, this.lbHeadingContact, spacer2,
+				   this.groupButton, this.newButton);
 	
+		   
+		   this.txtSearch = new TextField();
+		   this.txtSearch.getStyleClass().add("txtSearch");
+		   this.searchButton = new Button();
+		   this.searchButton.getStyleClass().add("searchButton");
+		   this.searchBar = new HBox();
+		   this.searchBar.getStyleClass().add("searchBar");
+		   
+		   this.searchBar.getChildren().addAll(this.txtSearch, this.searchButton);
+		   HBox.setHgrow(this.txtSearch, Priority.ALWAYS);
+		   
+		   this.center = new VBox();
+		   this.center.getChildren().addAll(this.searchBar, this.contactList);
+		   VBox.setVgrow(this.contactList, Priority.ALWAYS);
+		   
 		   this.root.setTop(this.toolbarMain);
-	
-		   this.root.setCenter(this.contactList);
-
-
+		   this.root.setCenter(this.center);
+		   
 	   
 	   //View für neuen Kontakt oder Kontakt anzeigen
 	   
 		   this.contactView = new BorderPane();
 		   
-		   GridPane contactCenter = new GridPane();
-		   contactCenter.getStyleClass().add("contactForm");
+		   GridPane listCenter = new GridPane();
+		   listCenter.getStyleClass().add("listCenter");
 		   
 		   this.toolbarContact = new ToolBar();
 		   
@@ -205,7 +236,10 @@ public class App_View extends View<App_Model> {
 		   this.txtNName = new TextField();
 		   this.txtNumber = new TextField();
 		   this.txtVName = new TextField();
-		   this.cbGroup = new ChoiceBox();
+		   
+		   this.cbGroup = new ComboBox();
+		   this.cbGroup.setEditable(true);
+		   
 		   this.birthDate = new DatePicker();
 		   
 		   
@@ -219,27 +253,23 @@ public class App_View extends View<App_Model> {
 		   this.birthDate.getStyleClass().add("txtBirthDate");
 		   
 		   
-		   HBox spacer2 = new HBox();                
-		   HBox.setHgrow(spacer2, Priority.ALWAYS);
-		   
-		   
 		   this.toolbarContact.getItems().addAll(this.homeButton, spacer, 
 				   this.lbHeadingNewContact, spacer2, this.saveAndUpdateButton);
 		   
-		   contactCenter.add(this.lbVName, 0, 0);
-		   contactCenter.add(this.txtVName, 1, 0);
-		   contactCenter.add(this.lbNName, 0, 1);
-		   contactCenter.add(this.txtNName, 1, 1);
-		   contactCenter.add(this.lbNumber, 0, 2);
-		   contactCenter.add(this.txtNumber, 1, 2);
-		   contactCenter.add(this.lbBirthDate, 0, 3);
-		   contactCenter.add(this.birthDate, 1, 3);
-		   contactCenter.add(this.lbEmail, 0, 4);
-		   contactCenter.add(this.txtEmail, 1, 4);
-		   contactCenter.add(this.lbGroup, 0, 5);
-		   contactCenter.add(this.cbGroup, 1, 5);
-		   contactCenter.add(this.lbNotizen, 0, 6);
-		   contactCenter.add(this.txtaNotizen, 1, 6);
+		   listCenter.add(this.lbVName, 0, 0);
+		   listCenter.add(this.txtVName, 1, 0);
+		   listCenter.add(this.lbNName, 0, 1);
+		   listCenter.add(this.txtNName, 1, 1);
+		   listCenter.add(this.lbNumber, 0, 2);
+		   listCenter.add(this.txtNumber, 1, 2);
+		   listCenter.add(this.lbBirthDate, 0, 3);
+		   listCenter.add(this.birthDate, 1, 3);
+		   listCenter.add(this.lbEmail, 0, 4);
+		   listCenter.add(this.txtEmail, 1, 4);
+		   listCenter.add(this.lbGroup, 0, 5);
+		   listCenter.add(this.cbGroup, 1, 5);
+		   listCenter.add(this.lbNotizen, 0, 6);
+		   listCenter.add(this.txtaNotizen, 1, 6);
 		   
 		   
 		   this.bottomBar = new HBox();
@@ -250,7 +280,7 @@ public class App_View extends View<App_Model> {
 		   
 		   
 		   this.contactView.setTop(this.toolbarContact);
-		   this.contactView.setCenter(contactCenter);
+		   this.contactView.setCenter(listCenter);
 		   this.contactView.setBottom(this.bottomBar);
 		   
 		   
@@ -265,18 +295,42 @@ public class App_View extends View<App_Model> {
 		   
 		   //Sprachauswahl muss hinzugefügt werden
 		   this.toolbarGroup.getItems().addAll(this.homeButton, spacer, this.lbHeadingGroup, spacer2);
+
+		  		   
+		  /*
+		   ListView<String> listFam = new ListView<String>();
 		   
+		   listFam.getItems().add("items");
+		   listFam.getItems().add("items");
+		   listFam.getItems().add("items");
+		   listFam.getItems().add("items");
 		   
+		   listFam.setCellFactory(CheckBoxListCell.forListView(null));
 		   
+		   	Accordion accordion = new Accordion();
+
+	        TitledPane pane1 = new TitledPane("Boats", listFam);
+	        TitledPane pane2 = new TitledPane("Cars", listFam);
+	        TitledPane pane3 = new TitledPane("Planes", listFam);
+	        TitledPane pane4 = new TitledPane("XXX", listFam);
+
+
+	        accordion.getPanes().add(pane1);
+	        accordion.getPanes().add(pane2);
+	        accordion.getPanes().add(pane3);
+	        accordion.getPanes().add(pane4);
+
+		   */
 		   
-		   this.groupView.setTop(this.toolbarGroup);
-		   
+	        this.groupView.setTop(this.toolbarGroup);
+	        
+	        //this.groupView.setCenter(accordion);
 		   
 
         
         updateTexts();
 		
-        Scene scene = new Scene(groupView, 450, 750);
+        Scene scene = new Scene(root, 450, 750);
         scene.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
         return scene;
         
@@ -293,10 +347,13 @@ public class App_View extends View<App_Model> {
 	       this.groupButton.setText(t.getString("program.toolbar.button.group"));
 	       this.newButton.setText(t.getString("program.toolbar.button.new"));
 	       
-	      //this.cbLanguage.setValue(t.getString("program.toolbar.choicebox.language"));
-	      //this.menuFile.setText(t.getString("program.menu.file"));
+	       this.searchButton.setText(t.getString("program.center.button.search"));
+	       
+	       this.cbLanguage.getItems().addAll(t.getString("program.toolbar.choicebox.language"));
+	     // this.menuFile.setText(t.getString("program.menu.file"));
 	      //this.menuFileLanguage.setText(t.getString("program.menu.file.language"));
-          //this.menuHelp.setText(t.getString("program.menu.help"));
+         // this.menuHelp.setText(t.getString("program.menu.help"));
+	       
 	       this.homeButton.setText(t.getString("program.toolbar.button.home"));
 	       this.saveAndUpdateButton.setText(t.getString("program.toolbar.button.save"));
 	       this.deleteButton.setText(t.getString("program.toolbar.button.delete"));
@@ -309,7 +366,7 @@ public class App_View extends View<App_Model> {
 	       this.lbNotizen.setText(t.getString("program.label.contact.notizen"));
 	       this.lbGroup.setText(t.getString("program.label.contact.group"));
 	       this.lbHeadingNewContact.setText(t.getString("program.toolbar.label.heading.new"));
-	       this.cbGroup.setValue(t.getString("program.label.contact.choiceBox"));
+	       this.cbGroup.getItems().addAll(t.getString("program.label.contact.comboBox"));
 	       this.lbHeadingGroup.setText(t.getString("program.toolbar.label.heading.group"));
            
            stage.setTitle(t.getString("program.name"));

@@ -1,25 +1,31 @@
-.center{
+.contactList{
 	-fx-font-size: 16px;
 }
 
-.center .list-cell:even {
+.contactList .list-cell:even {
 	-fx-background-color: grey;
 	-fx-text-fill: black;
 }
 
-.center .list-cell:odd {
+.contactList .list-cell:odd {
 	-fx-background-color: white;
 	-fx-text-fill: black;
 }
 
-.center .list-cell:selected {
+.contactList .list-cell:selected {
 	-fx-background-color: blue;
 	-fx-text-fill: black;
 }
 
 .lbHeadingContact{
+	-fx-label-padding: 5;
 	-fx-font-size: 30px;
 	-fx-alignment: center;
+}
+
+.cbLanguage{
+	-fx-pref-width: 45px;
+	-fx-padding: 2;
 }
 
 .newButton{
@@ -32,7 +38,22 @@
 	-fx-padding: 5;
 }
 
-.contactForm{
+.searchButton{
+	-fx-padding: 5;
+}
+
+.txtSearch{
+
+}
+
+.searchBar{
+	-fx-spacing: 5;
+	-fx-padding: 5;
+	-fx-alignment: left-center;
+}
+
+
+.listCenter{
 	-fx-hgap: 20;
 	-fx-vgap: 10;
 	-fx-alignment: top-center;
