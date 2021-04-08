@@ -1,6 +1,6 @@
 package Contacts.appClasses;
 
-public class Contact {
+public class Contact implements Comparable <Contact>{
 	
 	private static int IDNr = 0; 
 	private String vName;
@@ -53,13 +53,33 @@ public class Contact {
 	public void setPhoneNumber(int phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	
+	public int getID() {
+		return this.ID;
+	}
 
 	@Override
 	public String toString() {
 		return "Contact [vName=" + vName + ", nName=" + nName + ", eMail=" + eMail + ", phoneNumber=" + phoneNumber
 				+ ", ID=" + ID + "]";
 	}
-	
+
+	@Override
+	public int compareTo(Contact o) {
+		if(this.ID == o.getID())
+		return 0;
+		else 
+			if(this.ID < o.ID)
+				return -1;
+			else
+				return 1;
+	}
+	public boolean equals(Contact o) {
+		if(this.ID == o.getID())
+		return true;
+		else
+			return false;
+	}
 
 	
 
