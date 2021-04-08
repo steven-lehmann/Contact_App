@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 import Contacts.ServiceLocator;
 import Contacts.abstractClasses.Model;
@@ -26,6 +27,8 @@ public class App_Model extends Model {
 	
 	ServiceLocator serviceLocator;
 	private ArrayList<Contact> myContacts;
+	private TreeSet<Contact> treeContactList = new TreeSet<Contact>();
+
 	
 
     private int value;
@@ -35,7 +38,6 @@ public class App_Model extends Model {
         serviceLocator = ServiceLocator.getServiceLocator();        
         serviceLocator.getLogger().info("Application model initialized");
         
-       
     }
     
     public void readFile() {
@@ -48,6 +50,8 @@ public class App_Model extends Model {
     			Contact contact = readContact(line);
     			myContacts.add(contact);
     			line = fileIn.readLine();
+    			
+    			System.out.println(myContacts);
     		}
     	} catch (Exception e) {
 			// TODO Auto-generated catch block
