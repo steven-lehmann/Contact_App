@@ -137,8 +137,9 @@ public class App_View extends View<App_Model> {
 	   for(Contact c : super.model.treeContactList) {
 		   String Nname = c.getnName();
 		   String Vname = c.getvName();
+		   int ID = c.getID();
 		   
-	   	this.contactList.getItems().add(Nname + " " + Vname);
+	   	this.contactList.getItems().add(ID + ". " + Nname + " " + Vname);
 	    }
 		  
 		 //Sprachauswahl
@@ -327,7 +328,7 @@ public class App_View extends View<App_Model> {
         
         updateTexts();
 		
-        Scene scene = new Scene(groupView, 450, 750);
+        Scene scene = new Scene(root, 450, 750);
         scene.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
         return scene;
         
