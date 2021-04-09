@@ -386,11 +386,8 @@ public class App_View extends View<App_Model> {
 	       Translator t = ServiceLocator.getServiceLocator().getTranslator();
 	       
 	     //Text für die Elemente
-	       //this.searchButton.setText(t.getString("program.center.button.search"));
-
 	       this.menuFile.setText(t.getString("program.menu.file"));
 	       this.menuFileLanguage.setText(t.getString("program.menu.file.language"));
-
 	       this.deleteButton.setText(t.getString("program.center.button.delete"));
 	       this.editButtton.setText(t.getString("program.center.button.edit"));
 	       this.lbNName.setText(t.getString("program.label.contact.nname"));
