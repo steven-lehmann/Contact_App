@@ -316,7 +316,7 @@ public class App_View extends View<App_Model> {
         
         updateTexts();
 		
-        Scene scene = new Scene(contactView, 450, 750);
+        Scene scene = new Scene(root, 450, 750);
         scene.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
         return scene;
         
