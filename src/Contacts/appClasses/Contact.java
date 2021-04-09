@@ -66,13 +66,15 @@ public class Contact implements Comparable <Contact>{
 
 	@Override
 	public int compareTo(Contact o) {
-		if(this.ID == o.getID())
+		int compValue = this.getnName().compareTo(o.getnName());
+		if(compValue  == 0)
 		return 0;
-		else 
-			if(this.ID < o.ID)
+		else
+			if (compValue < 0)
 				return -1;
 			else
 				return 1;
+		
 	}
 	public boolean equals(Contact o) {
 		if(this.ID == o.getID())

@@ -92,6 +92,7 @@ public class JavaFX_App_Template extends Application {
         // can only be initialized now, because they may depend on the
         // resources initialized by the splash screen
         App_Model model = new App_Model();
+        model.readFile();
         view = new App_View(appStage, model);
         new App_Controller(model, view);
 

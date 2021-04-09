@@ -22,7 +22,7 @@ import Contacts.abstractClasses.Model;
  * @author Brad Richards
  */
 public class App_Model extends Model {
-	private static String CONTACT_FILE = "contact.txt";
+	private static String CONTACT_FILE = "contacts.txt";
 	private static String SEPARATOR = ";"; // Separator for "split"
 	
 	ServiceLocator serviceLocator;
@@ -49,9 +49,8 @@ public class App_Model extends Model {
     		while(line != null) {
     			Contact contact = readContact(line);
     			myContacts.add(contact);
+    			treeContactList.add(contact);
     			line = fileIn.readLine();
-    			
-    			System.out.println(myContacts);
     		}
     	} catch (Exception e) {
 			// TODO Auto-generated catch block
