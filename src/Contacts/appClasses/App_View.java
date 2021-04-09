@@ -47,14 +47,18 @@ public class App_View extends View<App_Model> {
 	protected Label lbVName, lbNName, lbNumber, lbEmail, lbBirthDate, lbNotizen, lbGroup;
 	
 	//Images für Buttons
-	/*
-	protected final Image ICONGROUP = new Image("group.png");
-	protected final Image ICONADD = new Image("add_contact.png");
-	protected final Image ICONSAVE = new Image("tick.png");
-	protected final Image ICONHOME = new Image("back.png");
-	*/
 	
-	protected ImageView iconGroup, iconAdd, iconSave, iconHome;
+	
+	protected static Image ICONGROUP = new Image("/group.png");
+	protected static Image ICONADD = new Image("/add_contact.png");
+	protected static Image ICONSAVE = new Image("/tick.png");
+	protected static Image ICONHOME = new Image("/home.png");
+	protected static Image ICONEDIT = new Image("/edit.png");
+	protected static Image ICONDELETE = new Image("/delete_red.png");
+	protected static Image ICONSEARCH = new Image("/search.png");
+	
+	
+	protected ImageView iconGroup, iconAdd, iconSave, iconHome, iconEdit, iconDelete, iconSearch;
    
 	protected ComboBox<String> cbGroup;
 	
@@ -72,7 +76,7 @@ public class App_View extends View<App_Model> {
 	
 	protected BorderPane root, contactView, groupView;
 	
-	protected HBox buttonBar, searchBar, bottomBar, saveBar;
+	protected HBox buttonBar, searchBar, bottomBar, saveBar, homeBar;
 	
 	protected VBox center, centerContact, centerGroup;
 	
@@ -131,20 +135,24 @@ public class App_View extends View<App_Model> {
 		   	this.newButton = new Button();
 		    this.newButton.getStyleClass().add("newButton");
 		    
-		    /*
-		     * Button wird mit Bild ergänzt
+		    
+		     //Button wird mit Bild ergänzt
 		    this.iconAdd = new ImageView(ICONADD);
 		    this.newButton.setGraphic(this.iconAdd);
-		   	 */   
+		    this.iconAdd.setFitHeight(30);
+		    this.iconAdd.setFitWidth(30);
+		   	   
 		    
 		    this.groupButton = new Button();
 		    this.groupButton.getStyleClass().add("groupButton");
 		    
-		    /*
-		     * Button wird mit Bild ergänzt
-		    this.iconGroup = new ImageView(this.ICONGROUP);
+		    
+		    //Button wird mit Bild ergänzt
+		    this.iconGroup = new ImageView(ICONGROUP);
 		    this.groupButton.setGraphic(this.iconGroup);
-		    */
+		    this.iconGroup.setFitHeight(30);
+		    this.iconGroup.setFitWidth(30);
+		    
 		    
 		   //ButtonBar wird definiert 
 		   this.buttonBar = new HBox();
@@ -156,8 +164,18 @@ public class App_View extends View<App_Model> {
 		   //Searchbar wird definiert
 		   this.txtSearch = new TextField();
 		   this.txtSearch.getStyleClass().add("txtSearch");
+		   
+		   
 		   this.searchButton = new Button();
 		   this.searchButton.getStyleClass().add("searchButton");
+		   
+		   //Button wird mit Bild ergänzt
+		   this.iconSearch = new ImageView(ICONSEARCH);
+		   this.searchButton.setGraphic(this.iconSearch);
+		   this.iconSearch.setFitHeight(25);
+		   this.iconSearch.setFitWidth(25);
+		   
+		   
 		   this.searchBar = new HBox();
 		   this.searchBar.getStyleClass().add("searchBar");
 		   
@@ -185,13 +203,43 @@ public class App_View extends View<App_Model> {
 		   
 		   this.homeButton = new Button();
 		   this.homeButton.getStyleClass().add("homeButton");
+		   
+		   //Button wird mit Bild ergänzt
+		   this.iconHome = new ImageView(ICONHOME);
+		   this.homeButton.setGraphic(this.iconHome);
+		   this.iconHome.setFitHeight(30);
+		   this.iconHome.setFitWidth(30);
+		   
+		   		   
 		   this.saveAndUpdateButton = new Button();
 		   this.saveAndUpdateButton.getStyleClass().add("saveButton");
+		   
+		   //Button wird mit Bild ergänzt
+		   this.iconSave = new ImageView(ICONSAVE);
+		   this.saveAndUpdateButton.setGraphic(this.iconSave);
+		   this.iconSave.setFitHeight(30);
+		   this.iconSave.setFitWidth(30);
+		   
+		   
 		   this.editButtton = new Button();
 		   this.editButtton.getStyleClass().add("editButton");
+		   
+		   //Button wird mit Bild ergänzt
+		   this.iconEdit = new ImageView(ICONEDIT);
+		   this.editButtton.setGraphic(this.iconEdit);
+		   this.iconEdit.setFitHeight(30);
+		   this.iconEdit.setFitWidth(30);
+		   
+		   
 		   this.deleteButton = new Button();
 		   this.deleteButton.getStyleClass().add("deleteButton");
 		   
+		   
+		   //Button wird mit Bild ergänzt
+		   this.iconDelete = new ImageView(ICONDELETE);
+		   this.deleteButton.setGraphic(this.iconDelete);
+		   this.iconDelete.setFitHeight(30);
+		   this.iconDelete.setFitWidth(30);
 		   
 		   
 		   //Labels für das Formular
@@ -273,7 +321,7 @@ public class App_View extends View<App_Model> {
 		   
 		   this.centerContact.getChildren().addAll(this.saveBar, listCenter);
 
-		   this.contactView.setTop(this.menuBar);
+		   //this.contactView.setTop(this.menuBar);
 		   this.contactView.setCenter(this.centerContact);
 		   this.contactView.setBottom(this.bottomBar);
 		   
@@ -282,6 +330,15 @@ public class App_View extends View<App_Model> {
 		   
 		   this.groupView = new BorderPane();
 
+		   this.centerGroup = new VBox();
+		   
+		   this.homeBar = new HBox();
+		   this.homeBar.getStyleClass().add("homeBar");
+		   this.homeBar.getChildren().add(this.homeButton);
+		   
+		   this.centerGroup.getChildren().add(this.homeBar);
+		   
+		   this.groupView.setCenter(this.centerGroup);
 		  		   
 		  /*
 		   ListView<String> listFam = new ListView<String>();
@@ -332,16 +389,8 @@ public class App_View extends View<App_Model> {
 	       Translator t = ServiceLocator.getServiceLocator().getTranslator();
 	       
 	     //Text für die Elemente
-	       this.groupButton.setText(t.getString("program.center.button.group"));
-	       this.newButton.setText(t.getString("program.center.button.new"));
-	       
-	       this.searchButton.setText(t.getString("program.center.button.search"));
-
 	       this.menuFile.setText(t.getString("program.menu.file"));
 	       this.menuFileLanguage.setText(t.getString("program.menu.file.language"));
-	       
-	       this.homeButton.setText(t.getString("program.center.button.home"));
-	       this.saveAndUpdateButton.setText(t.getString("program.center.button.save"));
 	       this.deleteButton.setText(t.getString("program.center.button.delete"));
 	       this.editButtton.setText(t.getString("program.center.button.edit"));
 	       this.lbNName.setText(t.getString("program.label.contact.nname"));
