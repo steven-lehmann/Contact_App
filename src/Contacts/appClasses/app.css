@@ -18,41 +18,48 @@
 }
 
 .newButton{
-	-fx-font-size: 14px;
-	-fx-padding: 5;
+	-fx-padding: 10;
+	-fx-background-radius: 15;
 }
 
 .groupButton{
-	-fx-font-size: 14px;
-	-fx-padding: 5;
+	-fx-padding: 10;
+	-fx-background-radius: 15;
 }
 
 .searchButton{
 	-fx-padding: 5;
+	-fx-background-radius: 50;
 }
 
 .homeButton{
-	-fx-font-size: 14px;
-	-fx-padding: 5;
+	-fx-padding: 8;
+	-fx-background-radius: 10;
 }
 
 .saveButton{
-	-fx-font-size: 14px;
-	-fx-padding: 5;
+	-fx-padding: 10;
+	-fx-background-radius: 10;
 }
 
 .searchBar{
-	-fx-spacing: 5;
+	-fx-spacing: 10;
 	-fx-padding: 5;
+	-fx-alignment: center;
 }
 
 .buttonBar{
-	-fx-spacing: 5;
+	-fx-spacing: 10;
 	-fx-padding: 5;
 	-fx-alignment: center-right;
 }
 
 .saveBar{
+	-fx-spacing: 10;
+	-fx-padding: 5;
+}
+
+.homeBar{
 	-fx-spacing: 10;
 	-fx-padding: 5;
 }
@@ -82,8 +89,8 @@
 }
 
 .bottomBar{
-	-fx-spacing: 10;
-	-fx-alignment: center-right;
+	-fx-spacing: 15;
+	-fx-alignment: center;
 	-fx-padding: 15;
 }
 
