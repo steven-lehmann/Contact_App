@@ -332,6 +332,7 @@ public class App_View extends View<App_Model> {
 
 		   this.centerGroup = new VBox();
 		   
+		   /*
 		   this.homeBar = new HBox();
 		   this.homeBar.getStyleClass().add("homeBar");
 		   this.homeBar.getChildren().add(this.homeButton);
@@ -339,6 +340,8 @@ public class App_View extends View<App_Model> {
 		   this.centerGroup.getChildren().add(this.homeBar);
 		   
 		   this.groupView.setCenter(this.centerGroup);
+		  	
+		  	*/	   
 		  		   
 		  /*
 		   ListView<String> listFam = new ListView<String>();
