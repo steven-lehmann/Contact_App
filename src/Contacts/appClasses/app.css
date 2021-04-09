@@ -17,24 +17,13 @@
 	-fx-text-fill: black;
 }
 
-.lbHeadingContact{
-	-fx-label-padding: 5;
-	-fx-font-size: 30px;
-	-fx-alignment: center;
-}
-
-.cbLanguage{
-	-fx-pref-width: 45px;
-	-fx-padding: 2;
-}
-
 .newButton{
-	-fx-font-size: 20px;
+	-fx-font-size: 14px;
 	-fx-padding: 5;
 }
 
 .groupButton{
-	-fx-font-size: 20px;
+	-fx-font-size: 14px;
 	-fx-padding: 5;
 }
 
@@ -42,8 +31,14 @@
 	-fx-padding: 5;
 }
 
-.txtSearch{
+.homeButton{
+	-fx-font-size: 14px;
+	-fx-padding: 5;
+}
 
+.saveButton{
+	-fx-font-size: 14px;
+	-fx-padding: 5;
 }
 
 .searchBar{
@@ -51,17 +46,22 @@
 	-fx-padding: 5;
 }
 
+.buttonBar{
+	-fx-spacing: 5;
+	-fx-padding: 5;
+	-fx-alignment: center-right;
+}
+
+.saveBar{
+	-fx-spacing: 10;
+	-fx-padding: 5;
+}
 
 .listCenter{
 	-fx-hgap: 20;
-	-fx-vgap: 10;
+	-fx-vgap: 20;
 	-fx-alignment: top-center;
-}
-
-.lbContactForm{
-	-fx-label-padding: 5;
-	-fx-min-width: 100;
-	-fx-min-height: 50;
+	-fx-padding: 10;
 }
 
 
@@ -87,8 +87,5 @@
 	-fx-padding: 15;
 }
 
-.lbHeadingGroup{
-	-fx-font-size: 30px;
-	-fx-alignment: center;
-}
+
 

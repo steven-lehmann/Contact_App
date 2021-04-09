@@ -26,8 +26,8 @@ public class App_Model extends Model {
 	private static String SEPARATOR = ";"; // Separator for "split"
 	
 	ServiceLocator serviceLocator;
-	private ArrayList<Contact> myContacts;
-	private TreeSet<Contact> treeContactList = new TreeSet<Contact>();
+	protected ArrayList<Contact> myContacts;
+	protected TreeSet<Contact> treeContactList = new TreeSet<Contact>();
 
 	
 
