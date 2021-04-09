@@ -42,7 +42,7 @@ import javafx.stage.Stage;
 public class App_View extends View<App_Model> {
 	
 	protected Button newButton, groupButton, saveAndUpdateButton, 
-			deleteButton, editButtton, homeButton, searchButton;
+			deleteButton, editButtton, homeButton, homeButtonGroup, searchButton;
 	
 	protected Label lbVName, lbNName, lbNumber, lbEmail, lbBirthDate, lbNotizen, lbGroup;
 	
@@ -53,12 +53,14 @@ public class App_View extends View<App_Model> {
 	protected static Image ICONADD = new Image("/add_contact.png");
 	protected static Image ICONSAVE = new Image("/tick.png");
 	protected static Image ICONHOME = new Image("/home.png");
+	protected static Image ICONHOMEGROUP = new Image("/home.png");
 	protected static Image ICONEDIT = new Image("/edit.png");
 	protected static Image ICONDELETE = new Image("/delete_red.png");
 	protected static Image ICONSEARCH = new Image("/search.png");
 	
 	
-	protected ImageView iconGroup, iconAdd, iconSave, iconHome, iconEdit, iconDelete, iconSearch;
+	protected ImageView iconGroup, iconAdd, iconSave, iconHome, iconHomeGroup,
+			iconEdit, iconDelete, iconSearch;
    
 	protected ComboBox<String> cbGroup;
 	
@@ -330,18 +332,26 @@ public class App_View extends View<App_Model> {
 		   
 		   this.groupView = new BorderPane();
 
-		   this.centerGroup = new VBox();
+		   this.centerGroup = new VBox(); 
 		   
-		   /*
+		   this.homeButtonGroup = new Button();
+		   this.homeButtonGroup.getStyleClass().add("homeButton");
+		   
+		   //Button wird mit Bild ergänzt
+		   this.iconHomeGroup = new ImageView(ICONHOMEGROUP);
+		   this.homeButtonGroup.setGraphic(this.iconHomeGroup);
+		   this.iconHomeGroup.setFitHeight(30);
+		   this.iconHomeGroup.setFitWidth(30);
+		   
 		   this.homeBar = new HBox();
 		   this.homeBar.getStyleClass().add("homeBar");
-		   this.homeBar.getChildren().add(this.homeButton);
+		   this.homeBar.getChildren().add(this.homeButtonGroup);
 		   
-		   this.centerGroup.getChildren().add(this.homeBar);
+		   this.centerGroup.getChildren().add(this.homeButtonGroup);
 		   
 		   this.groupView.setCenter(this.centerGroup);
 		  	
-		  	*/	   
+		   
 		  		   
 		  /*
 		   ListView<String> listFam = new ListView<String>();
