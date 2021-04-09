@@ -21,6 +21,15 @@ public class Contact implements Comparable <Contact>{
 		this.eMail = eMail;
 		this.phoneNumber = phoneNumber;
 	}
+	
+	/*public Contact() {
+		Integer integer = (Integer) null;
+		this.ID = integer;
+		this.vName = null;
+		this.nName = null;
+		this.eMail = null;
+		this.phoneNumber = integer;
+	}*/
 
 	public String getvName() {
 		return vName;
@@ -60,8 +69,7 @@ public class Contact implements Comparable <Contact>{
 
 	@Override
 	public String toString() {
-		return "Contact [vName=" + vName + ", nName=" + nName + ", eMail=" + eMail + ", phoneNumber=" + phoneNumber
-				+ ", ID=" + ID + "]";
+		return nName + " " + vName;
 	}
 
 	@Override
@@ -82,7 +90,4 @@ public class Contact implements Comparable <Contact>{
 		else
 			return false;
 	}
-
-	
-
 }

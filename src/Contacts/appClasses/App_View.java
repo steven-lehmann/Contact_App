@@ -68,7 +68,7 @@ public class App_View extends View<App_Model> {
 	
 	protected DatePicker birthDate;
 	
-	protected ListView<String> contactList;
+	protected ListView<Contact> contactList;
 	
 	protected BorderPane root, contactView, groupView;
 	
@@ -76,6 +76,7 @@ public class App_View extends View<App_Model> {
 	
 	protected VBox center, centerContact, centerGroup;
 	
+	protected Scene scene1, scene2, scene3;
 
 	public App_View(Stage stage, App_Model model) {
         super(stage, model);
@@ -100,17 +101,15 @@ public class App_View extends View<App_Model> {
 	    this.root = new BorderPane();
 	    
 	  
-	    this.contactList = new ListView<String>();
+	    this.contactList = new ListView<Contact>();
 	    this.contactList.getStyleClass().add("contactList");
 	    
 
 	   //Daten für die Kontaktliste werden geladen 
 	   for(Contact c : super.model.treeContactList) {
-		   String Nname = c.getnName();
-		   String Vname = c.getvName();
-		   int ID = c.getID();
 		   
-	   	this.contactList.getItems().add(ID + ". " + Nname + " " + Vname);
+		   
+	   	this.contactList.getItems().add(c);
 	    }
 	   
 		  
@@ -316,9 +315,13 @@ public class App_View extends View<App_Model> {
         
         updateTexts();
 		
-        Scene scene = new Scene(root, 450, 750);
-        scene.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
-        return scene;
+        scene1 = new Scene(root, 450, 750);
+        scene2 = new Scene(contactView, 450, 750);
+        scene3 = new Scene(groupView, 450, 750);
+        scene1.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
+        scene2.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
+        scene3.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
+        return scene1;
         
         
 	}
@@ -353,4 +356,14 @@ public class App_View extends View<App_Model> {
            
            stage.setTitle(t.getString("program.name"));
 	    }
+	   
+	   public void changeContactView() {
+			stage.setScene(scene2);
+			stage.show();
+		}
+	   
+	   public void backHome() {
+			stage.setScene(scene1);
+			stage.show();
+		}
 }

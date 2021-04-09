@@ -4,7 +4,10 @@ import Contacts.ServiceLocator;
 import Contacts.abstractClasses.Controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.WindowEvent;
 
 /**
@@ -19,7 +22,6 @@ public class App_Controller extends Controller<App_Model, App_View> {
 
     public App_Controller(App_Model model, App_View view) {
         super(model, view);
-        
      // register ourselves to listen for button clicks
       /*  view.btnClick.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -38,7 +40,37 @@ public class App_Controller extends Controller<App_Model, App_View> {
         
         serviceLocator = ServiceLocator.getServiceLocator();        
         serviceLocator.getLogger().info("Application controller initialized");
+        
+        /*view.contactList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				view.changeContactView();
+				Contact contact = view.contactList.getSelectionModel().getSelectedItem();
+        		this.updateView(contact);
+				
+            	System.out.println("clicked on " + view.contactList.getSelectionModel().getSelectedItem());
+				
+			}
+			 private void updateView(Contact contact) {
+					// Auto-generated method stub
+					
+				}
+
+        });*/
+        
+        view.contactList.setOnMouseClicked(this::updateContact);
+        
+        view.homeButton.setOnAction(this::updateHome);
+        
+        view.newButton.setOnAction(this::newContact);
+        
+        view.saveAndUpdateButton.setOnAction(this::saveNewContact);
+        
+        //view.deleteButton.setOnAction(this::delete);
+     
     }
+    
+    
     
     public void buttonClick() {
         model.incrementValue();
@@ -46,4 +78,56 @@ public class App_Controller extends Controller<App_Model, App_View> {
 
        // view.lblNumber.setText(newText);        
     }
+    
+
+	private void updateContact(MouseEvent mouseevent1) {
+		view.changeContactView();
+		Contact contact = view.contactList.getSelectionModel().getSelectedItem();
+		this.updateView(contact);
+	}
+
+
+	private void updateView(Contact contact) {
+		if (contact != null) {
+			view.txtVName.setText(contact.getvName());
+			view.txtNName.setText(contact.getnName());
+			view.txtNumber.setText(Integer.toString(contact.getPhoneNumber()));
+			view.txtEmail.setText(contact.geteMail());
+		} else {
+			view.txtVName.setText("");
+			view.txtNName.setText("");
+			view.txtNumber.setText("");
+			view.txtEmail.setText("");
+		}
+		
+	}
+
+
+
+	private void updateHome(Event e) {
+		view.backHome();
+	}
+	
+	private void newContact(Event e) {
+		view.changeContactView();
+		this.updateView(null);
+	}
+	
+	private void saveNewContact(Event e) {
+		String nName = view.txtNName.getText();
+		String vName = view.txtVName.getText();
+		String eMail = view.txtEmail.getText();
+		String phoneNum = view.txtNumber.getText();
+		int phoneNumber = Integer.parseInt(phoneNum);
+		Contact contact = model.creatContact(vName, nName, eMail, phoneNumber);
+		view.contactList.getItems().add(contact);
+		model.saveContact();
+	}
+	
+	/*private void delete(Event e) {
+		String name = view.txtNName.getText();
+		model.treeContactList.remove(model.getSelectedContact(name));
+		this.updateView(null);
+	}*/
+
 }

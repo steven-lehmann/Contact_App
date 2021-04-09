@@ -10,7 +10,6 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.TreeSet;
-
 import Contacts.ServiceLocator;
 import Contacts.abstractClasses.Model;
 
@@ -26,7 +25,6 @@ public class App_Model extends Model {
 	private static String SEPARATOR = ";"; // Separator for "split"
 	
 	ServiceLocator serviceLocator;
-	protected ArrayList<Contact> myContacts;
 	protected TreeSet<Contact> treeContactList = new TreeSet<Contact>();
 
 	
@@ -44,11 +42,9 @@ public class App_Model extends Model {
     	File contactFile = new File(CONTACT_FILE);
     	try(Reader inReader = new FileReader(contactFile)) {
     		BufferedReader fileIn = new BufferedReader(inReader);
-    		myContacts = new ArrayList<Contact>(); // Liste wird erstellt
     		String line = fileIn.readLine(); // Zeile lesen
     		while(line != null) {
     			Contact contact = readContact(line);
-    			myContacts.add(contact);
     			treeContactList.add(contact);
     			line = fileIn.readLine();
     		}
@@ -71,7 +67,7 @@ public class App_Model extends Model {
     public void saveContact() { //save Contacts in File
     	File contactFile = new File(CONTACT_FILE);
     	try(Writer out = new FileWriter(contactFile)) {
-    		for(Contact contact : myContacts) {
+    		for(Contact contact : treeContactList) {
     			String line = writeContact(contact);
     			out.write(line);
     		}
@@ -81,8 +77,8 @@ public class App_Model extends Model {
     }
 
 	private String writeContact(Contact contact) {
-		String line = contact.getvName() + SEPARATOR + contact.getvName() + 
-				contact.geteMail() + SEPARATOR + contact.getPhoneNumber() + "\n";
+		String line = contact.getvName() + SEPARATOR + contact.getnName() + SEPARATOR
+				+ contact.geteMail() + SEPARATOR + contact.getPhoneNumber() + "\n";
 		return line;
 	}
 
@@ -95,4 +91,20 @@ public class App_Model extends Model {
         serviceLocator.getLogger().info("Application model: value incremented to " + value);
         return value;
     }
+
+	public Contact creatContact(String vName, String nName, String eMail, int phoneNumber) {
+		Contact contact = new Contact(vName, nName, eMail, phoneNumber);
+		treeContactList.add(contact);
+		return contact;
+	}
+
+	/*public Contact getSelectedContact(String name) {
+		Contact contact = new Contact();
+		for(Contact c : treeContactList) {
+			if(c.getnName().equals(name)) {
+				contact = c;
+			} 
+		}
+		return contact;
+	}*/
 }
