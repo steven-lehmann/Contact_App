@@ -187,6 +187,7 @@ public class App_View extends View<App_Model> {
 		   
 		   //VBox Center wird gefüllt
 		   this.center = new VBox();
+		   this.center.getStyleClass().add("center");
 		   this.center.getChildren().addAll(this.buttonBar, this.searchBar, this.contactList);
 		   VBox.setVgrow(this.contactList, Priority.ALWAYS);
 		   
@@ -318,6 +319,7 @@ public class App_View extends View<App_Model> {
 		   this.bottomBar.getStyleClass().add("bottomBar");
 		   
 		   this.centerContact = new VBox();
+		   this.centerContact.getStyleClass().add("centerContact");
 		   VBox.setVgrow(listCenter, Priority.ALWAYS);
 		   
 		   
@@ -333,6 +335,7 @@ public class App_View extends View<App_Model> {
 		   this.groupView = new BorderPane();
 
 		   this.centerGroup = new VBox(); 
+		   this.centerGroup.getStyleClass().add("centerGroup");
 		   
 		   this.homeButtonGroup = new Button();
 		   this.homeButtonGroup.getStyleClass().add("homeButton");

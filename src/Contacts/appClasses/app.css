@@ -1,45 +1,60 @@
 .contactList{
 	-fx-font-size: 16px;
+	-fx-border-color: #ffffff;
 }
 
 .contactList .list-cell:even {
-	-fx-background-color: grey;
+	-fx-background-color: #f8f8ff;
 	-fx-text-fill: black;
 }
 
 .contactList .list-cell:odd {
-	-fx-background-color: white;
+	-fx-background-color: #dcdcdc;
 	-fx-text-fill: black;
 }
 
 .contactList .list-cell:selected {
-	-fx-background-color: blue;
+	-fx-background-color: #3870ff;
 	-fx-text-fill: black;
+}
+
+.center{
+	-fx-background-color: #dcdcdc;
 }
 
 .newButton{
 	-fx-padding: 10;
 	-fx-background-radius: 15;
+	-fx-border-radius: 15;
+	-fx-border-color: #000000;
 }
 
 .groupButton{
 	-fx-padding: 10;
 	-fx-background-radius: 15;
+	-fx-border-radius: 15;
+	-fx-border-color: #000000;
 }
 
 .searchButton{
 	-fx-padding: 5;
 	-fx-background-radius: 50;
+	-fx-border-radius: 50;
+	-fx-border-color: #000000;
 }
 
 .homeButton{
 	-fx-padding: 8;
 	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+	-fx-border-color: #000000;
 }
 
 .saveButton{
 	-fx-padding: 10;
 	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+	-fx-border-color: #000000;
 }
 
 .searchBar{
@@ -92,7 +107,43 @@
 	-fx-spacing: 15;
 	-fx-alignment: center;
 	-fx-padding: 15;
+	-fx-background-color: #dcdcdc;
 }
 
+.editButton{
+	-fx-padding: 10;
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+	-fx-border-color: #808080;
+}
 
+.deleteButton{
+	-fx-padding: 10;
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+	-fx-border-color: #808080;
+}
 
+.lbContactForm{
+	-fx-font-size: 14px;
+}
+
+.txtContactForm{
+	-fx-font-size: 14px;
+}
+
+.txtNotizen{
+	-fx-font-size: 14px;
+}
+
+.txtBirthDate{
+	-fx-font-size: 14px;
+}
+
+.centerContact{
+	-fx-background-color: #dcdcdc;
+}
+
+.centerGroup{
+	-fx-background-color: #dcdcdc;
+}
