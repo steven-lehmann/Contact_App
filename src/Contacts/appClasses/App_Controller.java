@@ -67,6 +67,8 @@ public class App_Controller extends Controller<App_Model, App_View> {
         view.saveAndUpdateButton.setOnAction(this::saveNewContact);
         
         view.deleteButton.setOnAction(this::delete);
+        
+        view.searchButton.setOnAction(this::search);
      
     }
     
@@ -106,6 +108,8 @@ public class App_Controller extends Controller<App_Model, App_View> {
 
 	private void updateHome(Event e) {
 		view.backHome();
+		this.updateListView();
+		view.txtSearch.clear();
 	}
 	
 	private void newContact(Event e) {
@@ -139,6 +143,13 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		for(Contact c : model.treeContactList) {
 		   	view.contactList.getItems().add(c);
 		    }
+	}
+	
+	private void search(Event e) {
+		String name = view.txtSearch.getText();
+		Contact contact = model.getSelectedContact(name);
+		view.contactList.getItems().clear();
+		view.contactList.getItems().add(contact);
 	}
 
 }

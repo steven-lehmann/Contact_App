@@ -101,8 +101,13 @@ public class App_Model extends Model {
 	public Contact getSelectedContact(String name) {
 		Contact contact = null;
 		for(Contact c : treeContactList)
-			if(c.getnName().contains(name))
+			if(c.getnName().contains(name)) {
 				contact = c;
+			} else {
+				if(c.getvName().contains(name))
+					contact = c;
+			}
 		return contact;
 	}
+
 }
