@@ -66,7 +66,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
         
         view.saveAndUpdateButton.setOnAction(this::saveNewContact);
         
-        //view.deleteButton.setOnAction(this::delete);
+        view.deleteButton.setOnAction(this::delete);
      
     }
     
@@ -124,10 +124,21 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		model.saveContact();
 	}
 	
-	/*private void delete(Event e) {
+	private void delete(Event e) {
 		String name = view.txtNName.getText();
-		model.treeContactList.remove(model.getSelectedContact(name));
+		Contact contact = model.getSelectedContact(name);
+		model.treeContactList.remove(contact);
+		model.saveContact();
+		this.updateListView();
 		this.updateView(null);
-	}*/
+		
+	}
+	
+	private void updateListView() {
+		view.contactList.getItems().clear();
+		for(Contact c : model.treeContactList) {
+		   	view.contactList.getItems().add(c);
+		    }
+	}
 
 }

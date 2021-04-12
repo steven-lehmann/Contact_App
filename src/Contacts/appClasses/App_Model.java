@@ -98,13 +98,11 @@ public class App_Model extends Model {
 		return contact;
 	}
 
-	/*public Contact getSelectedContact(String name) {
-		Contact contact = new Contact();
-		for(Contact c : treeContactList) {
-			if(c.getnName().equals(name)) {
+	public Contact getSelectedContact(String name) {
+		Contact contact = null;
+		for(Contact c : treeContactList)
+			if(c.getnName().contains(name))
 				contact = c;
-			} 
-		}
 		return contact;
-	}*/
+	}
 }
