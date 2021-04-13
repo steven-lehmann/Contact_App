@@ -274,6 +274,7 @@ public class App_View extends View<App_Model> {
 		   
 		   this.cbGroup = new ComboBox<String>();
 		   this.cbGroup.setEditable(true);
+		  
 		   
 		   this.birthDate = new DatePicker();
 		   
@@ -350,13 +351,11 @@ public class App_View extends View<App_Model> {
 		   this.homeBar.getStyleClass().add("homeBar");
 		   this.homeBar.getChildren().add(this.homeButtonGroup);
 		   
-		   this.centerGroup.getChildren().add(this.homeButtonGroup);
-		   
-		   this.groupView.setCenter(this.centerGroup);
+		  
 		  	
 		   
-		  		   
-		  /*
+		  	/*	   
+		  
 		   ListView<String> listFam = new ListView<String>();
 		   
 		   listFam.getItems().add("items");
@@ -364,23 +363,26 @@ public class App_View extends View<App_Model> {
 		   listFam.getItems().add("items");
 		   listFam.getItems().add("items");
 		   
-		   listFam.setCellFactory(CheckBoxListCell.forListView(null));
+		   	listFam.setCellFactory(CheckBoxListCell.forListView(null));
 		   
 		   	Accordion accordion = new Accordion();
-
-	        TitledPane pane1 = new TitledPane("Boats", listFam);
+	
+	        TitledPane pane1 = new TitledPane("Familie", listFam);
 	        TitledPane pane2 = new TitledPane("Cars", listFam);
 	        TitledPane pane3 = new TitledPane("Planes", listFam);
 	        TitledPane pane4 = new TitledPane("XXX", listFam);
-
-
+	
+	
 	        accordion.getPanes().add(pane1);
 	        accordion.getPanes().add(pane2);
 	        accordion.getPanes().add(pane3);
 	        accordion.getPanes().add(pane4);
-
-		   */
-
+	
+	        */
+		   
+	        this.centerGroup.getChildren().addAll(this.homeButtonGroup);
+			   
+	        this.groupView.setCenter(this.centerGroup);
 	        
 	        //this.groupView.setCenter(accordion);
 		   
@@ -416,7 +418,9 @@ public class App_View extends View<App_Model> {
 	       this.lbEmail.setText(t.getString("program.label.contact.email"));
 	       this.lbNotizen.setText(t.getString("program.label.contact.notizen"));
 	       this.lbGroup.setText(t.getString("program.label.contact.group"));
-	       this.cbGroup.getItems().addAll(t.getString("program.label.contact.comboBox"));
+	       this.cbGroup.getItems().addAll(t.getString("program.label.contact.comboBox.value.1"),
+	    		   t.getString("program.label.contact.comboBox.value.2"), 
+	    		   t.getString("program.label.contact.comboBox.value.3"));
 
            
            stage.setTitle(t.getString("program.name"));
