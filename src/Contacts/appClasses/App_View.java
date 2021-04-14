@@ -327,7 +327,9 @@ public class App_View extends View<App_Model> {
 		   
 		   
 		   this.bottomBar = new HBox();
-		   this.bottomBar.getChildren().addAll(this.deleteButton, this.editButtton, this.txtID);
+		   this.bottomBar.getChildren().addAll(this.deleteButton, this.txtID, this.editButtton);
+		   // ID unsichtbar machen
+		   this.txtID.setVisible(false);
 		   this.bottomBar.getStyleClass().add("bottomBar");
 		   
 		   this.centerContact = new VBox();
@@ -446,4 +448,27 @@ public class App_View extends View<App_Model> {
 			stage.setScene(scene1);
 			stage.show();
 		}
+
+	public void disableTextField() {
+		this.txtVName.setDisable(true);
+		this.txtNName.setDisable(true);
+		this.txtaNotizen.setDisable(true);
+		this.txtNumber.setDisable(true);
+		this.birthDate.setDisable(true);
+		this.cbGroup.setDisable(true);
+		this.txtEmail.setDisable(true);
+		this.txtID.setDisable(true);
+	}
+
+	public void enableTextField() {
+		this.txtVName.setDisable(false);
+		this.txtNName.setDisable(false);
+		this.txtaNotizen.setDisable(false);
+		this.txtNumber.setDisable(false);
+		this.birthDate.setDisable(false);
+		this.cbGroup.setDisable(false);
+		this.txtEmail.setDisable(false);
+		
+	}
+	
 }

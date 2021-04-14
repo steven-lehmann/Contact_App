@@ -71,6 +71,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
         view.searchButton.setOnAction(this::search);
         
         view.updateButton.setOnAction(this::refreshContact);
+        view.editButtton.setOnAction(this::editContact);
      
     }
     
@@ -86,6 +87,11 @@ public class App_Controller extends Controller<App_Model, App_View> {
 
 	private void updateContact(MouseEvent mouseevent1) {
 		view.changeContactView();
+		view.disableTextField();
+		view.saveAndUpdateButton.setDisable(true);
+		view.updateButton.setDisable(true);
+		view.editButtton.setDisable(false);
+		view.deleteButton.setDisable(false);
 		Contact contact = view.contactList.getSelectionModel().getSelectedItem();
 		this.updateView(contact);
 	}
@@ -95,7 +101,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		if (contact != null) {
 			view.txtVName.setText(contact.getvName());
 			view.txtNName.setText(contact.getnName());
-			view.txtNumber.setText(Integer.toString(contact.getPhoneNumber()));
+			view.txtNumber.setText("0"+Integer.toString(contact.getPhoneNumber()));
 			view.txtEmail.setText(contact.geteMail());
 			view.txtID.setText(Integer.toString(contact.getID()));
 		} else {
@@ -103,6 +109,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 			view.txtNName.setText("");
 			view.txtNumber.setText("");
 			view.txtEmail.setText("");
+			view.txtID.setText("");
 		}
 		
 	}
@@ -117,6 +124,12 @@ public class App_Controller extends Controller<App_Model, App_View> {
 	
 	private void newContact(Event e) {
 		view.changeContactView();
+		view.enableTextField();
+		view.updateButton.setDisable(true);
+		view.editButtton.setDisable(true);
+		view.deleteButton.setDisable(true);
+		view.saveAndUpdateButton.setDisable(false);
+		view.txtID.setDisable(true);
 		this.updateView(null);
 	}
 	
@@ -128,6 +141,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		int phoneNumber = Integer.parseInt(phoneNum);
 		Contact contact = model.creatContact(vName, nName, eMail, phoneNumber);
 		view.contactList.getItems().add(contact);
+		view.backHome();
 		model.saveContact();
 	}
 	
@@ -164,6 +178,13 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		int phoneNum = Integer.parseInt(view.txtNumber.getText());
 		contact.setPhoneNumber(phoneNum);
 		contact.seteMail(view.txtEmail.getText());
+		view.disableTextField();
+		view.updateButton.setDisable(true);
 		model.saveContact();
+	}
+	
+	private void editContact(Event e) {
+		view.updateButton.setDisable(false);
+		view.enableTextField();
 	}
 }
