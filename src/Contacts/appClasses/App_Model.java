@@ -95,8 +95,10 @@ public class App_Model extends Model {
 
 	public Contact creatContact(String vName, String nName, String eMail, int phoneNumber) {
 		Contact contact = new Contact(vName, nName, eMail, phoneNumber);
+		serviceLocator.getLogger().info("Create new Contact: " + contact);
 		treeContactList.add(contact);
 		return contact;
+		
 	}
 
 	public Contact getSelectedContact(String name) {

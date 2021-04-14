@@ -1,11 +1,14 @@
 package Contacts.appClasses;
 
+import java.util.Date;
+
 public class Contact implements Comparable <Contact>{
 	
 	private static int IDNr = 0; 
 	private String vName;
 	private String nName; 
 	private String eMail;
+	private Date birthday;
 	private int phoneNumber;
 	private final int ID;
 	
@@ -22,14 +25,14 @@ public class Contact implements Comparable <Contact>{
 		this.phoneNumber = phoneNumber;
 	}
 	
-	/*public Contact() {
-		Integer integer = (Integer) null;
-		this.ID = integer;
-		this.vName = null;
-		this.nName = null;
-		this.eMail = null;
-		this.phoneNumber = integer;
-	}*/
+	public Contact(String vName, String nName, String eMail, Date birthday, int phoneNumber) {
+		this.ID = getNextID();
+		this.vName = vName;
+		this.nName = nName;
+		this.eMail = eMail;
+		this.birthday = birthday;
+		this.phoneNumber = phoneNumber;
+	}
 
 	public String getvName() {
 		return vName;

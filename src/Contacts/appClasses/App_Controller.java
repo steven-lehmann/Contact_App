@@ -92,6 +92,9 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		view.updateButton.setDisable(true);
 		view.editButtton.setDisable(false);
 		view.deleteButton.setDisable(false);
+		view.deleteButton.setVisible(true);
+		view.editButtton.setVisible(true);
+		view.updateButton.setVisible(true);
 		Contact contact = view.contactList.getSelectionModel().getSelectedItem();
 		this.updateView(contact);
 	}
@@ -125,10 +128,10 @@ public class App_Controller extends Controller<App_Model, App_View> {
 	private void newContact(Event e) {
 		view.changeContactView();
 		view.enableTextField();
-		view.updateButton.setDisable(true);
-		view.editButtton.setDisable(true);
-		view.deleteButton.setDisable(true);
 		view.saveAndUpdateButton.setDisable(false);
+		view.deleteButton.setVisible(false);
+		view.editButtton.setVisible(false);
+		view.updateButton.setVisible(false);
 		view.txtID.setDisable(true);
 		this.updateView(null);
 	}
