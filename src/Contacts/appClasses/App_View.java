@@ -42,7 +42,7 @@ import javafx.stage.Stage;
 public class App_View extends View<App_Model> {
 	
 	protected Button newButton, groupButton, saveAndUpdateButton, 
-			deleteButton, editButtton, homeButton, homeButtonGroup, searchButton;
+			deleteButton, editButtton, homeButton, homeButtonGroup, searchButton, updateButton;
 	
 	protected Label lbVName, lbNName, lbNumber, lbEmail, lbBirthDate, lbNotizen, lbGroup;
 	
@@ -57,10 +57,11 @@ public class App_View extends View<App_Model> {
 	protected static Image ICONEDIT = new Image("/edit.png");
 	protected static Image ICONDELETE = new Image("/delete_red.png");
 	protected static Image ICONSEARCH = new Image("/search.png");
+	protected static Image ICONUPDATE = new Image("/updateButton.png");
 	
 	
 	protected ImageView iconGroup, iconAdd, iconSave, iconHome, iconHomeGroup,
-			iconEdit, iconDelete, iconSearch;
+			iconEdit, iconDelete, iconSearch, iconUpdateButton;
    
 	protected ComboBox<String> cbGroup;
 	
@@ -68,7 +69,7 @@ public class App_View extends View<App_Model> {
 	
 	protected  Menu menuFile, menuFileLanguage, menuHelp;
 	
-	protected TextField txtVName, txtNName, txtNumber, txtEmail, txtSearch;
+	protected TextField txtVName, txtNName, txtNumber, txtEmail, txtSearch, txtID;
 	
 	protected TextArea txtaNotizen;
 	
@@ -223,6 +224,15 @@ public class App_View extends View<App_Model> {
 		   this.iconSave.setFitHeight(30);
 		   this.iconSave.setFitWidth(30);
 		   
+		   this.updateButton = new Button();
+		   this.updateButton.getStyleClass().add("updateButton");
+		   
+		   //Button wird mit Bild ergänzt
+		   this.iconUpdateButton = new ImageView(ICONUPDATE);
+		   this.updateButton.setGraphic(this.iconUpdateButton);
+		   this.iconUpdateButton.setFitHeight(30);
+		   this.iconUpdateButton.setFitWidth(30);
+		   
 		   
 		   this.editButtton = new Button();
 		   this.editButtton.getStyleClass().add("editButton");
@@ -271,6 +281,7 @@ public class App_View extends View<App_Model> {
 		   this.txtNName = new TextField();
 		   this.txtNumber = new TextField();
 		   this.txtVName = new TextField();
+		   this.txtID = new TextField();
 		   
 		   this.cbGroup = new ComboBox<String>();
 		   this.cbGroup.setEditable(true);
@@ -312,11 +323,11 @@ public class App_View extends View<App_Model> {
 		   HBox spacer = new HBox();
 		   HBox.setHgrow(spacer, Priority.ALWAYS);
 		   
-		   this.saveBar.getChildren().addAll(this.homeButton, spacer, this.saveAndUpdateButton);
+		   this.saveBar.getChildren().addAll(this.homeButton, spacer, this.updateButton, this.saveAndUpdateButton);
 		   
 		   
 		   this.bottomBar = new HBox();
-		   this.bottomBar.getChildren().addAll(this.deleteButton, this.editButtton);
+		   this.bottomBar.getChildren().addAll(this.deleteButton, this.editButtton, this.txtID);
 		   this.bottomBar.getStyleClass().add("bottomBar");
 		   
 		   this.centerContact = new VBox();

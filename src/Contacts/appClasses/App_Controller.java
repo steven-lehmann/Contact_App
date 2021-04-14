@@ -69,6 +69,8 @@ public class App_Controller extends Controller<App_Model, App_View> {
         view.deleteButton.setOnAction(this::delete);
         
         view.searchButton.setOnAction(this::search);
+        
+        view.updateButton.setOnAction(this::refreshContact);
      
     }
     
@@ -95,6 +97,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 			view.txtNName.setText(contact.getnName());
 			view.txtNumber.setText(Integer.toString(contact.getPhoneNumber()));
 			view.txtEmail.setText(contact.geteMail());
+			view.txtID.setText(Integer.toString(contact.getID()));
 		} else {
 			view.txtVName.setText("");
 			view.txtNName.setText("");
@@ -135,7 +138,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		model.saveContact();
 		this.updateListView();
 		this.updateView(null);
-		
+		view.backHome();
 	}
 	
 	private void updateListView() {
@@ -151,5 +154,16 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		view.contactList.getItems().clear();
 		view.contactList.getItems().add(contact);
 	}
-
+	
+	private void refreshContact(Event e) {
+		String ID = view.txtID.getText();
+		int contactID = Integer.parseInt(ID);
+		Contact contact = model.getSelectedContacdID(contactID);
+		contact.setvName(view.txtVName.getText());
+		contact.setnName(view.txtNName.getText());
+		int phoneNum = Integer.parseInt(view.txtNumber.getText());
+		contact.setPhoneNumber(phoneNum);
+		contact.seteMail(view.txtEmail.getText());
+		model.saveContact();
+	}
 }

@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.TreeSet;
+
 import Contacts.ServiceLocator;
 import Contacts.abstractClasses.Model;
 
@@ -110,4 +111,14 @@ public class App_Model extends Model {
 		return contact;
 	}
 
+	public Contact getSelectedContacdID(int id) {
+		Contact contact = null;
+		for(Contact c : treeContactList) {
+			if(c.getID() == id) {
+				contact = c;
+			} 
+		}
+		return contact;
+	}
+	
 }
