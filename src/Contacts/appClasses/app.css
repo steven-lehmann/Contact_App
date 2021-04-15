@@ -131,6 +131,11 @@
 	-fx-border-color: #808080;
 }
 
+.txtID{
+	-fx-max-width: 30;
+	-fx-max-height: 20;
+}
+
 .lbContactForm{
 	-fx-font-size: 14px;
 }

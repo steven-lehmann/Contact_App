@@ -89,6 +89,8 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		view.changeContactView();
 		view.disableTextField();
 		view.saveAndUpdateButton.setDisable(true);
+		view.saveAndUpdateButton.setVisible(false);
+		view.saveAndUpdateButton.setManaged(false);
 		view.updateButton.setDisable(true);
 		view.editButtton.setDisable(false);
 		view.deleteButton.setDisable(false);

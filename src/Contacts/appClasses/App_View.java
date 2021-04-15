@@ -57,7 +57,7 @@ public class App_View extends View<App_Model> {
 	protected static Image ICONEDIT = new Image("/edit.png");
 	protected static Image ICONDELETE = new Image("/delete_red.png");
 	protected static Image ICONSEARCH = new Image("/search.png");
-	protected static Image ICONUPDATE = new Image("/updateButton.png");
+	protected static Image ICONUPDATE = new Image("/double_tick.png");
 	
 	
 	protected ImageView iconGroup, iconAdd, iconSave, iconHome, iconHomeGroup,
@@ -204,7 +204,7 @@ public class App_View extends View<App_Model> {
 		   GridPane listCenter = new GridPane();
 		   listCenter.getStyleClass().add("listCenter");
 		   
-		   
+		   //Home Button
 		   this.homeButton = new Button();
 		   this.homeButton.getStyleClass().add("homeButton");
 		   
@@ -214,7 +214,7 @@ public class App_View extends View<App_Model> {
 		   this.iconHome.setFitHeight(30);
 		   this.iconHome.setFitWidth(30);
 		   
-		   		   
+		   //Save Button		   
 		   this.saveAndUpdateButton = new Button();
 		   this.saveAndUpdateButton.getStyleClass().add("saveButton");
 		   
@@ -224,6 +224,7 @@ public class App_View extends View<App_Model> {
 		   this.iconSave.setFitHeight(30);
 		   this.iconSave.setFitWidth(30);
 		   
+		   //Update Button
 		   this.updateButton = new Button();
 		   this.updateButton.getStyleClass().add("updateButton");
 		   
@@ -233,7 +234,7 @@ public class App_View extends View<App_Model> {
 		   this.iconUpdateButton.setFitHeight(30);
 		   this.iconUpdateButton.setFitWidth(30);
 		   
-		   
+		   //Edit Button
 		   this.editButtton = new Button();
 		   this.editButtton.getStyleClass().add("editButton");
 		   
@@ -243,7 +244,7 @@ public class App_View extends View<App_Model> {
 		   this.iconEdit.setFitHeight(30);
 		   this.iconEdit.setFitWidth(30);
 		   
-		   
+		   //Delete Button
 		   this.deleteButton = new Button();
 		   this.deleteButton.getStyleClass().add("deleteButton");
 		   
@@ -298,6 +299,7 @@ public class App_View extends View<App_Model> {
 		   this.txtVName.getStyleClass().add("txtContactForm");
 		   this.cbGroup.getStyleClass().add("txtContactForm");
 		   this.birthDate.getStyleClass().add("txtBirthDate");
+		   this.txtID.getStyleClass().add("txtID");
 		
 		   
 		   
@@ -327,7 +329,7 @@ public class App_View extends View<App_Model> {
 		   
 		   
 		   this.bottomBar = new HBox();
-		   this.bottomBar.getChildren().addAll(this.deleteButton, this.txtID, this.editButtton);
+		   this.bottomBar.getChildren().addAll( this.deleteButton, this.txtID, this.editButtton);
 		   // ID unsichtbar machen
 		   this.txtID.setVisible(false);
 		   this.bottomBar.getStyleClass().add("bottomBar");
@@ -339,7 +341,6 @@ public class App_View extends View<App_Model> {
 		   
 		   this.centerContact.getChildren().addAll(this.saveBar, listCenter);
 
-		   //this.contactView.setTop(this.menuBar);
 		   this.contactView.setCenter(this.centerContact);
 		   this.contactView.setBottom(this.bottomBar);
 		   
