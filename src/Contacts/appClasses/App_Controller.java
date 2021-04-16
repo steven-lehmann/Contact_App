@@ -1,5 +1,7 @@
 package Contacts.appClasses;
 
+import java.util.ArrayList;
+
 import Contacts.ServiceLocator;
 import Contacts.abstractClasses.Controller;
 import javafx.application.Platform;
@@ -7,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.control.SelectionModel;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
@@ -72,9 +75,12 @@ public class App_Controller extends Controller<App_Model, App_View> {
         view.searchButton.setOnAction(this::search);
         
         view.updateButton.setOnAction(this::refreshContact);
+        
         view.editButtton.setOnAction(this::editContact);
         
         view.groupButton.setOnAction(this::showGroup);
+        
+        view.searchGroupButton.setOnAction(this::searchGroup);
      
     }
     
@@ -185,6 +191,17 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		view.contactList.getItems().clear();
 		view.contactList.getItems().add(contact);
 	}
+	
+	public void searchGroup(Event e) {
+		Group group = view.cbGroup2.getValue();
+		ArrayList<Contact> arrayGroup = model.getSelectedGroup(group);
+		view.groupList.getItems().clear();
+		for(Contact c : arrayGroup) {
+			view.groupList.getItems().add(c);
+		}
+	}
+	
+	
 	
 	private void refreshContact(Event e) {
 		String ID = view.txtID.getText();

@@ -25,6 +25,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,7 +47,8 @@ import javafx.stage.Stage;
 public class App_View extends View<App_Model> {
 	
 	protected Button newButton, groupButton, saveAndUpdateButton, 
-			deleteButton, editButtton, homeButton, homeButtonGroup, searchButton, updateButton;
+			deleteButton, editButtton, homeButton, homeButtonGroup, searchButton, updateButton,
+			searchGroupButton;
 	
 	protected Label lbVName, lbNName, lbNumber, lbEmail, lbBirthDate, lbNotizen, lbGroup;
 	
@@ -68,6 +71,8 @@ public class App_View extends View<App_Model> {
    
 	protected ComboBox<String> cbGroup;
 	
+	protected ComboBox<Group> cbGroup2;
+	
 	protected MenuBar menuBar;
 	
 	protected  Menu menuFile, menuFileLanguage, menuHelp;
@@ -78,7 +83,7 @@ public class App_View extends View<App_Model> {
 	
 	protected DatePicker birthDate;
 	
-	protected ListView<Contact> contactList;
+	protected ListView<Contact> contactList, groupList;
 	
 	protected BorderPane root, contactView, groupView;
 	
@@ -347,11 +352,7 @@ public class App_View extends View<App_Model> {
 		   this.contactView.setCenter(this.centerContact);
 		   this.contactView.setBottom(this.bottomBar);
 		   
-		   
-	   //View Gruppe
-		   
-		   /*
-		   
+		   // GroupView
 		   this.groupView = new BorderPane();
 
 		   this.centerGroup = new VBox(); 
@@ -370,44 +371,39 @@ public class App_View extends View<App_Model> {
 		   this.homeBar.getStyleClass().add("homeBar");
 		   this.homeBar.getChildren().add(this.homeButtonGroup);
 		   
-	
+	       this.centerGroup.getChildren().addAll(this.homeButtonGroup);
+	       this.groupView.setTop(this.centerGroup);
+	       
+	       // groupList
+	       
+	       groupList = new ListView<Contact>();
+	       this.contactList.getStyleClass().add("contactList");
+	       
+	       this.searchGroupButton = new Button();
+		   this.searchGroupButton.getStyleClass().add("searchButton");
 		   
-		   ListView<Contact> listFam = new ListView<Contact>();
-		   for(Contact c : super.model.treeContactList) {
-			   listFam.getItems().addAll(c);
+		   //Button wird mit Bild ergänzt
+		   this.iconSearch = new ImageView(ICONSEARCH);
+		   this.searchGroupButton.setGraphic(this.iconSearch);
+		   this.iconSearch.setFitHeight(25);
+		   this.iconSearch.setFitWidth(25);
+		   
+		   this.cbGroup2 = new ComboBox<Group>();
+		   
+		   for(Contact c : model.treeContactList) {
+			  cbGroup2.getItems().add(c.getGroup());
 		   }
 		   
-		
+		   HBox searchBar2 = new HBox();
 		   
-		   TitledPane pane1 = new TitledPane("Familie", listFam);
-	       TitledPane pane2 = new TitledPane("Cars", listFam);
-	       TitledPane pane3 = new TitledPane("Planes", listFam);
-	       TitledPane pane4 = new TitledPane("XXX", listFam);
+		   searchBar2.getChildren().addAll(cbGroup2, searchGroupButton);
 		   
-		   VBox vBox = new VBox();
+		   groupView.setCenter(searchBar2);
 		   
-		   vBox.getChildren().addAll(pane1, pane2, pane3, pane4);
-		  
-		   //	Accordion accordion = new Accordion();
-	
-	       
-
-	
-	       	accordion.getPanes().add(pane1);
-	      	accordion.getPanes().add(pane2);
-	        accordion.getPanes().add(pane3);
-	        accordion.getPanes().add(pane4);
-	        
-	
+		   groupView.setBottom(groupList);
 		   
-	        this.centerGroup.getChildren().addAll(this.homeButtonGroup);
-			   
-	        this.groupView.setTop(this.centerGroup);
-	        
-	        this.groupView.setCenter(vBox);
 		   
-	        */
-        
+	      
         updateTexts();
 		
         scene1 = new Scene(root, 450, 750);

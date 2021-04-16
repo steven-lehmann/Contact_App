@@ -123,6 +123,15 @@ public class App_Model extends Model {
 		}
 		return contact;
 	}
+
+	public ArrayList<Contact> getSelectedGroup(Group group) {
+		ArrayList<Contact> groupArrayList = new ArrayList<Contact>();
+		for(Contact c : treeContactList)
+			if(c.getGroup().equals(group)) {
+				groupArrayList.add(c);
+			}
+		return groupArrayList;
+	}
 	
 	
 	
