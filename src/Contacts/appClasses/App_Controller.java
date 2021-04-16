@@ -81,6 +81,8 @@ public class App_Controller extends Controller<App_Model, App_View> {
         view.groupButton.setOnAction(this::showGroup);
         
         view.searchGroupButton.setOnAction(this::searchGroup);
+        
+        view.groupList.setOnMouseClicked(this::updateContact);
      
     }
     
