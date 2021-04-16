@@ -4,11 +4,14 @@ import java.util.Date;
 
 public class Contact implements Comparable <Contact>{
 	
+
+	
 	private static int IDNr = 0; 
 	private String vName;
 	private String nName; 
 	private String eMail;
-	private Date birthday;
+	// private Date birthday;
+	private Group group;
 	private int phoneNumber;
 	private final int ID;
 	
@@ -17,22 +20,24 @@ public class Contact implements Comparable <Contact>{
 		return ++IDNr;
 	}
 	
-	public Contact(String vName, String nName, String eMail, int phoneNumber) {
+	public Contact(String vName, String nName, String eMail, Group group, int phoneNumber) {
 		this.ID = getNextID();
 		this.vName = vName;
 		this.nName = nName;
 		this.eMail = eMail;
+		this.group = group;
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public Contact(String vName, String nName, String eMail, Date birthday, int phoneNumber) {
+	/* public Contact(String vName, String nName, String eMail, Date birthday, int phoneNumber) {
 		this.ID = getNextID();
 		this.vName = vName;
 		this.nName = nName;
 		this.eMail = eMail;
 		this.birthday = birthday;
-		this.phoneNumber = phoneNumber;
-	}
+		this.phoneNumber = phoneNumber; 
+	} */
+
 
 	public String getvName() {
 		return vName;
@@ -92,5 +97,13 @@ public class Contact implements Comparable <Contact>{
 		return true;
 		else
 			return false;
+	}
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 }

@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.WindowEvent;
+import javafx.util.StringConverter;
 
 /**
  * Copyright 2015, FHNW, Prof. Dr. Brad Richards. All rights reserved. This code
@@ -72,6 +73,8 @@ public class App_Controller extends Controller<App_Model, App_View> {
         
         view.updateButton.setOnAction(this::refreshContact);
         view.editButtton.setOnAction(this::editContact);
+        
+        view.groupButton.setOnAction(this::showGroup);
      
     }
     
@@ -82,6 +85,10 @@ public class App_Controller extends Controller<App_Model, App_View> {
         String newText = Integer.toString(model.getValue());        
 
        // view.lblNumber.setText(newText);        
+    }
+    
+    private void showGroup(Event e) {
+    	view.changeGroupView();
     }
     
 
@@ -107,6 +114,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 			view.txtVName.setText(contact.getvName());
 			view.txtNName.setText(contact.getnName());
 			view.txtNumber.setText("0"+Integer.toString(contact.getPhoneNumber()));
+			view.cbGroup.setValue(contact.getGroup().name());
 			view.txtEmail.setText(contact.geteMail());
 			view.txtID.setText(Integer.toString(contact.getID()));
 		} else {
@@ -144,9 +152,11 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		String nName = view.txtNName.getText();
 		String vName = view.txtVName.getText();
 		String eMail = view.txtEmail.getText();
+		String stringGroup = view.cbGroup.getSelectionModel().getSelectedItem();
+		Group group = Group.valueOf(stringGroup);
 		String phoneNum = view.txtNumber.getText();
 		int phoneNumber = Integer.parseInt(phoneNum);
-		Contact contact = model.creatContact(vName, nName, eMail, phoneNumber);
+		Contact contact = model.creatContact(vName, nName, eMail, group, phoneNumber);
 		view.contactList.getItems().add(contact);
 		view.backHome();
 		model.saveContact();

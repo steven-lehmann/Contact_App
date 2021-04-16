@@ -60,8 +60,9 @@ public class App_Model extends Model {
 		String vName = attributes[0];
 		String nName = attributes[1];
 		String eMail = attributes[2];
-		int phoneNumber = Integer.parseInt(attributes[3]);
-		Contact contact = new Contact(vName, nName, eMail, phoneNumber);
+		Group group = Group.valueOf(attributes[3]);
+		int phoneNumber = Integer.parseInt(attributes[4]);
+		Contact contact = new Contact(vName, nName, eMail, group, phoneNumber);
 		return contact;
 	}
     
@@ -79,7 +80,7 @@ public class App_Model extends Model {
 
 	private String writeContact(Contact contact) {
 		String line = contact.getvName() + SEPARATOR + contact.getnName() + SEPARATOR
-				+ contact.geteMail() + SEPARATOR + contact.getPhoneNumber() + "\n";
+				+ contact.geteMail() + SEPARATOR + contact.getGroup() + SEPARATOR + contact.getPhoneNumber() + "\n";
 		return line;
 	}
 
@@ -93,8 +94,8 @@ public class App_Model extends Model {
         return value;
     }
 
-	public Contact creatContact(String vName, String nName, String eMail, int phoneNumber) {
-		Contact contact = new Contact(vName, nName, eMail, phoneNumber);
+	public Contact creatContact(String vName, String nName, String eMail, Group group, int phoneNumber) {
+		Contact contact = new Contact(vName, nName, eMail, group, phoneNumber);
 		serviceLocator.getLogger().info("Create new Contact: " + contact);
 		treeContactList.add(contact);
 		return contact;
@@ -122,5 +123,7 @@ public class App_Model extends Model {
 		}
 		return contact;
 	}
+	
+	
 	
 }

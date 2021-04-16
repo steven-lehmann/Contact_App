@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 import Contacts.ServiceLocator;
 import Contacts.abstractClasses.View;
 import Contacts.commonClasses.Translator;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
@@ -348,6 +350,8 @@ public class App_View extends View<App_Model> {
 		   
 	   //View Gruppe
 		   
+		   /*
+		   
 		   this.groupView = new BorderPane();
 
 		   this.centerGroup = new VBox(); 
@@ -366,42 +370,43 @@ public class App_View extends View<App_Model> {
 		   this.homeBar.getStyleClass().add("homeBar");
 		   this.homeBar.getChildren().add(this.homeButtonGroup);
 		   
+	
+		   
+		   ListView<Contact> listFam = new ListView<Contact>();
+		   for(Contact c : super.model.treeContactList) {
+			   listFam.getItems().addAll(c);
+		   }
+		   
+		
+		   
+		   TitledPane pane1 = new TitledPane("Familie", listFam);
+	       TitledPane pane2 = new TitledPane("Cars", listFam);
+	       TitledPane pane3 = new TitledPane("Planes", listFam);
+	       TitledPane pane4 = new TitledPane("XXX", listFam);
+		   
+		   VBox vBox = new VBox();
+		   
+		   vBox.getChildren().addAll(pane1, pane2, pane3, pane4);
 		  
-		  	
-		   
-		  	/*	   
-		  
-		   ListView<String> listFam = new ListView<String>();
-		   
-		   listFam.getItems().add("items");
-		   listFam.getItems().add("items");
-		   listFam.getItems().add("items");
-		   listFam.getItems().add("items");
-		   
-		   	listFam.setCellFactory(CheckBoxListCell.forListView(null));
-		   
-		   	Accordion accordion = new Accordion();
+		   //	Accordion accordion = new Accordion();
 	
-	        TitledPane pane1 = new TitledPane("Familie", listFam);
-	        TitledPane pane2 = new TitledPane("Cars", listFam);
-	        TitledPane pane3 = new TitledPane("Planes", listFam);
-	        TitledPane pane4 = new TitledPane("XXX", listFam);
+	       
+
 	
-	
-	        accordion.getPanes().add(pane1);
-	        accordion.getPanes().add(pane2);
+	       	accordion.getPanes().add(pane1);
+	      	accordion.getPanes().add(pane2);
 	        accordion.getPanes().add(pane3);
 	        accordion.getPanes().add(pane4);
+	        
 	
-	        */
 		   
 	        this.centerGroup.getChildren().addAll(this.homeButtonGroup);
 			   
-	        this.groupView.setCenter(this.centerGroup);
+	        this.groupView.setTop(this.centerGroup);
 	        
-	        //this.groupView.setCenter(accordion);
+	        this.groupView.setCenter(vBox);
 		   
-
+	        */
         
         updateTexts();
 		
@@ -448,6 +453,11 @@ public class App_View extends View<App_Model> {
 	   
 	   public void backHome() {
 			stage.setScene(scene1);
+			stage.show();
+		}
+	   
+	   public void changeGroupView() {
+			stage.setScene(scene3);
 			stage.show();
 		}
 
