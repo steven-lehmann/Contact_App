@@ -82,7 +82,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
         
         view.searchGroupButton.setOnAction(this::searchGroup);
         
-        view.groupList.setOnMouseClicked(this::updateContact);
+        view.groupList.setOnMouseClicked(this::updateContactGroupVie);
      
     }
     
@@ -113,6 +113,22 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		view.editButtton.setVisible(true);
 		view.updateButton.setVisible(true);
 		Contact contact = view.contactList.getSelectionModel().getSelectedItem();
+		this.updateView(contact);
+	}
+
+	private void updateContactGroupVie(MouseEvent mouseevent1) {
+		view.changeContactView();
+		view.disableTextField();
+		view.saveAndUpdateButton.setDisable(true);
+		view.saveAndUpdateButton.setVisible(false);
+		view.saveAndUpdateButton.setManaged(false);
+		view.updateButton.setDisable(true);
+		view.editButtton.setDisable(false);
+		view.deleteButton.setDisable(false);
+		view.deleteButton.setVisible(true);
+		view.editButtton.setVisible(true);
+		view.updateButton.setVisible(true);
+		Contact contact = view.groupList.getSelectionModel().getSelectedItem();
 		this.updateView(contact);
 	}
 
