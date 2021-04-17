@@ -389,10 +389,13 @@ public class App_View extends View<App_Model> {
 		   this.iconSearch.setFitWidth(25);
 		   
 		   this.cbGroup2 = new ComboBox<Group>();
+		   cbGroup2.getItems().addAll(Group.values());
 		   
-		   for(Contact c : model.treeContactList) {
+		 /*  for(Contact c : model.treeContactList) {
 			  cbGroup2.getItems().add(c.getGroup());
+			  
 		   }
+		   */
 		   
 		   HBox searchBar2 = new HBox();
 		   

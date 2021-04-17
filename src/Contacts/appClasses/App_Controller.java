@@ -97,6 +97,8 @@ public class App_Controller extends Controller<App_Model, App_View> {
     
     private void showGroup(Event e) {
     	view.changeGroupView();
+    	
+    	
     }
     
 
