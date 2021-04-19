@@ -8,7 +8,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.TreeSet;
 
 import Contacts.ServiceLocator;
@@ -24,9 +28,13 @@ import Contacts.abstractClasses.Model;
 public class App_Model extends Model {
 	private static String CONTACT_FILE = "contacts.txt";
 	private static String SEPARATOR = ";"; // Separator for "split"
+	protected SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+	protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
 	
 	ServiceLocator serviceLocator;
 	protected TreeSet<Contact> treeContactList = new TreeSet<Contact>();
+	
 
 	
 
@@ -55,14 +63,16 @@ public class App_Model extends Model {
 		}
     }
     
-    private Contact readContact(String line) { //File import
+    private Contact readContact(String line) throws ParseException { //File import
 		String [] attributes = line.split(SEPARATOR);
 		String vName = attributes[0];
 		String nName = attributes[1];
 		String eMail = attributes[2];
 		Group group = Group.valueOf(attributes[3]);
-		int phoneNumber = Integer.parseInt(attributes[4]);
-		Contact contact = new Contact(vName, nName, eMail, group, phoneNumber);
+		String date = attributes[4];
+		Date birthday = formatter.parse(date);
+		int phoneNumber = Integer.parseInt(attributes[5]);
+		Contact contact = new Contact(vName, nName, eMail, group, birthday, phoneNumber);
 		return contact;
 	}
     
@@ -80,7 +90,8 @@ public class App_Model extends Model {
 
 	private String writeContact(Contact contact) {
 		String line = contact.getvName() + SEPARATOR + contact.getnName() + SEPARATOR
-				+ contact.geteMail() + SEPARATOR + contact.getGroup() + SEPARATOR + contact.getPhoneNumber() + "\n";
+				+ contact.geteMail() + SEPARATOR + contact.getGroup() + SEPARATOR 
+				+ formatter.format(contact.getBirthday()) + SEPARATOR + contact.getPhoneNumber() + "\n";
 		return line;
 	}
 
@@ -94,8 +105,8 @@ public class App_Model extends Model {
         return value;
     }
 
-	public Contact creatContact(String vName, String nName, String eMail, Group group, int phoneNumber) {
-		Contact contact = new Contact(vName, nName, eMail, group, phoneNumber);
+	public Contact creatContact(String vName, String nName, String eMail, Group group, Date birthday, int phoneNumber) {
+		Contact contact = new Contact(vName, nName, eMail, group, birthday, phoneNumber);
 		serviceLocator.getLogger().info("Create new Contact: " + contact);
 		treeContactList.add(contact);
 		return contact;

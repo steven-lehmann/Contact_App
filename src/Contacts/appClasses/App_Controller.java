@@ -1,6 +1,11 @@
 package Contacts.appClasses;
 
+
+
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 import Contacts.ServiceLocator;
 import Contacts.abstractClasses.Controller;
@@ -68,13 +73,27 @@ public class App_Controller extends Controller<App_Model, App_View> {
         
         view.newButton.setOnAction(this::newContact);
         
-        view.saveAndUpdateButton.setOnAction(this::saveNewContact);
+        view.saveAndUpdateButton.setOnAction(arg0 -> {
+			try {
+				saveNewContact(arg0);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
         
         view.deleteButton.setOnAction(this::delete);
         
         view.searchButton.setOnAction(this::search);
         
-        view.updateButton.setOnAction(this::refreshContact);
+        view.updateButton.setOnAction(arg0 -> {
+			try {
+				refreshContact(arg0);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
         
         view.editButtton.setOnAction(this::editContact);
         
@@ -139,15 +158,20 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		if (contact != null) {
 			view.txtVName.setText(contact.getvName());
 			view.txtNName.setText(contact.getnName());
+			view.txtEmail.setText(contact.geteMail());
 			view.txtNumber.setText("0"+Integer.toString(contact.getPhoneNumber()));
 			view.cbGroup.setValue(contact.getGroup().name());
-			view.txtEmail.setText(contact.geteMail());
+			String birthday = model.formatter.format(contact.getBirthday());
+			LocalDate date = LocalDate.parse(birthday, model.LocalFormatter);
+			view.birthDate.setValue(date);
 			view.txtID.setText(Integer.toString(contact.getID()));
 		} else {
 			view.txtVName.setText("");
 			view.txtNName.setText("");
 			view.txtNumber.setText("");
 			view.txtEmail.setText("");
+			view.cbGroup.setValue(null);
+			view.birthDate.setValue(LocalDate.now());
 			view.txtID.setText("");
 		}
 		
@@ -174,7 +198,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		this.updateView(null);
 	}
 	
-	private void saveNewContact(Event e) {
+	private void saveNewContact(Event e) throws ParseException {
 		String nName = view.txtNName.getText();
 		String vName = view.txtVName.getText();
 		String eMail = view.txtEmail.getText();
@@ -182,7 +206,11 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		Group group = Group.valueOf(stringGroup);
 		String phoneNum = view.txtNumber.getText();
 		int phoneNumber = Integer.parseInt(phoneNum);
-		Contact contact = model.creatContact(vName, nName, eMail, group, phoneNumber);
+		LocalDate date = view.birthDate.getValue();
+		String dateString = date.format(model.LocalFormatter);
+		Date birthday = model.formatter.parse(dateString);
+		//
+		Contact contact = model.creatContact(vName, nName, eMail, group, birthday, phoneNumber);
 		view.contactList.getItems().add(contact);
 		view.backHome();
 		model.saveContact();
@@ -223,7 +251,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 	
 	
 	
-	private void refreshContact(Event e) {
+	private void refreshContact(Event e) throws ParseException {
 		String ID = view.txtID.getText();
 		int contactID = Integer.parseInt(ID);
 		Contact contact = model.getSelectedContacdID(contactID);
@@ -232,6 +260,14 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		int phoneNum = Integer.parseInt(view.txtNumber.getText());
 		contact.setPhoneNumber(phoneNum);
 		contact.seteMail(view.txtEmail.getText());
+		LocalDate date = view.birthDate.getValue();
+		System.out.println(date);
+		String dateString = date.format(model.LocalFormatter);
+		System.out.println(dateString);
+		Date birthday = model.formatter.parse(dateString);
+		System.out.println(birthday);
+		contact.setBirthday(birthday);
+		//
 		view.disableTextField();
 		view.updateButton.setDisable(true);
 		model.saveContact();

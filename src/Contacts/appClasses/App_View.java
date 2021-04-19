@@ -293,10 +293,11 @@ public class App_View extends View<App_Model> {
 		   this.txtID = new TextField();
 		   
 		   this.cbGroup = new ComboBox<String>();
-		   this.cbGroup.setEditable(true);
+		   this.cbGroup.setEditable(false);
 		  
 		   
 		   this.birthDate = new DatePicker();
+		   this.birthDate.setEditable(false);
 		   
 		   
 		   //CSS Verküpfung TextFields
