@@ -135,6 +135,7 @@ public class App_View extends View<App_Model> {
 	           language.setOnAction( event -> {
 					sl.getConfiguration().setLocalOption("Language", locale.getLanguage());
 	                sl.setTranslator(new Translator(locale.getLanguage()));
+	                this.cbGroup.getItems().removeAll(this.cbGroup.getItems());
 	                updateTexts();
 	            });
 	        }
