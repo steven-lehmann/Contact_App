@@ -1,3 +1,3 @@
-Joel;Gerster;Gertster.Joel@hotmail.com;Familie;07.01.1998;789129394
-Lind;Meier;Meier@hotmail.com;Freunde;26.12.1977;2492469
-Hans;Ueli;ueli@gmail.com;Arbeit;16.12.2015;789210787
+Mathias;Altermatt;qwertz,ztrewq,;Freunde;06.03.2017;12345,54321,;
+Nicolas;Debuis;qwertz,ztrewq,;Freunde;20.04.2021;12345,54321,;
+Joel;Gerster;Gertster.Joel@hotmail.com,;Familie;07.01.1998;789129394,;

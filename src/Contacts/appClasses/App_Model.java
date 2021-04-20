@@ -12,7 +12,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.TreeSet;
 
 import Contacts.ServiceLocator;
@@ -28,6 +30,7 @@ import Contacts.abstractClasses.Model;
 public class App_Model extends Model {
 	private static String CONTACT_FILE = "contacts.txt";
 	private static String SEPARATOR = ";"; // Separator for "split"
+	private static String SEPARATOR2 = ",";
 	protected SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 	protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
@@ -65,18 +68,40 @@ public class App_Model extends Model {
     
     private Contact readContact(String line) throws ParseException { //File import
 		String [] attributes = line.split(SEPARATOR);
+		
 		String vName = attributes[0];
 		String nName = attributes[1];
 		String eMail = attributes[2];
+		String[] eMails = eMail.split(SEPARATOR2);
+		ArrayList<String> alEmails = this.readMailsArray(eMails);
 		Group group = Group.valueOf(attributes[3]);
 		String date = attributes[4];
 		Date birthday = formatter.parse(date);
-		int phoneNumber = Integer.parseInt(attributes[5]);
-		Contact contact = new Contact(vName, nName, eMail, group, birthday, phoneNumber);
+		String number = attributes[5];
+		String[] numbers = number.split(SEPARATOR2);
+		ArrayList<Integer> alNumbers = this.readArrayNum(numbers);
+
+		Contact contact = new Contact(vName, nName, alEmails, group, birthday, alNumbers);
 		return contact;
 	}
     
-    public void saveContact() { //save Contacts in File
+    private ArrayList<Integer> readArrayNum(String[] numbers) {
+    	ArrayList<Integer> alNumbers = new ArrayList<Integer>();
+    	for(int i = 0; i < numbers.length; i++) {
+			alNumbers.add(Integer.parseInt(numbers[i]));
+		}
+		return alNumbers;
+	}
+
+	private ArrayList<String> readMailsArray(String[] eMails) {
+    	ArrayList<String> alEmails = new ArrayList<String>();
+		for(int i = 0; i < eMails.length; i++) {
+			alEmails.add(eMails[i]);
+		}
+		return alEmails;
+	}
+
+	public void saveContact() { //save Contacts in File
     	File contactFile = new File(CONTACT_FILE);
     	try(Writer out = new FileWriter(contactFile)) {
     		for(Contact contact : treeContactList) {
@@ -89,9 +114,22 @@ public class App_Model extends Model {
     }
 
 	private String writeContact(Contact contact) {
+		ArrayList<String> eMails = contact.geteMails();
+		String concatEmails = "";
+		for(String e : eMails) {
+			concatEmails += e + ",";
+		}
+		
+		ArrayList<Integer> numbers = contact.getPhoneNumbers();
+		String concatPhoneNumbers = "";
+		for(int n : numbers) {
+			String tempString = Integer.toString(n);
+			concatPhoneNumbers += tempString + ",";
+		}
+		
 		String line = contact.getvName() + SEPARATOR + contact.getnName() + SEPARATOR
-				+ contact.geteMail() + SEPARATOR + contact.getGroup() + SEPARATOR 
-				+ formatter.format(contact.getBirthday()) + SEPARATOR + contact.getPhoneNumber() + "\n";
+				+ concatEmails + SEPARATOR + contact.getGroup() + SEPARATOR 
+				+ formatter.format(contact.getBirthday()) + SEPARATOR + concatPhoneNumbers + SEPARATOR + "\n";
 		return line;
 	}
 
@@ -105,8 +143,8 @@ public class App_Model extends Model {
         return value;
     }
 
-	public Contact creatContact(String vName, String nName, String eMail, Group group, Date birthday, int phoneNumber) {
-		Contact contact = new Contact(vName, nName, eMail, group, birthday, phoneNumber);
+	public Contact creatContact(String vName, String nName, ArrayList<String> eMails, Group group, Date birthday, ArrayList<Integer> numbers) {
+		Contact contact = new Contact(vName, nName, eMails, group, birthday, numbers);
 		serviceLocator.getLogger().info("Create new Contact: " + contact);
 		treeContactList.add(contact);
 		return contact;

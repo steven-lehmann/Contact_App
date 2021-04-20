@@ -48,7 +48,7 @@ public class App_View extends View<App_Model> {
 	
 	protected Button newButton, groupButton, saveAndUpdateButton, 
 			deleteButton, editButtton, homeButton, homeButtonGroup, searchButton, updateButton,
-			searchGroupButton;
+			searchGroupButton, addTfNumButton, addTfMailButton;
 	
 	protected Label lbVName, lbNName, lbNumber, lbEmail, lbBirthDate, lbNotizen, lbGroup;
 	
@@ -79,6 +79,10 @@ public class App_View extends View<App_Model> {
 	
 	protected TextField txtVName, txtNName, txtNumber, txtEmail, txtSearch, txtID;
 	
+	protected TextField[] tfNumArray = new TextField[20];
+	
+	protected TextField[] tfMailArray = new TextField[20];
+	
 	protected TextArea txtaNotizen;
 	
 	protected DatePicker birthDate;
@@ -89,9 +93,14 @@ public class App_View extends View<App_Model> {
 	
 	protected HBox buttonBar, searchBar, bottomBar, saveBar, homeBar;
 	
-	protected VBox center, centerContact, centerGroup;
+	protected VBox center, centerContact, centerGroup, numBox, mailBox;
 	
 	protected Scene scene1, scene2, scene3;
+	
+	protected GridPane listCenter;
+	
+	protected static int INDEXE = 0;
+	protected static int INDEXN = 0;
 
 	public App_View(Stage stage, App_Model model) {
         super(stage, model);
@@ -174,6 +183,7 @@ public class App_View extends View<App_Model> {
 	
 		   //Searchbar wird definiert
 		   this.txtSearch = new TextField();
+		   this.txtSearch.setPromptText("Vorname oder Nachname eingeben");
 		   this.txtSearch.getStyleClass().add("txtSearch");
 		   
 		   
@@ -209,7 +219,7 @@ public class App_View extends View<App_Model> {
 	   
 		   this.contactView = new BorderPane();
 		   
-		   GridPane listCenter = new GridPane();
+		   listCenter = new GridPane();
 		   listCenter.getStyleClass().add("listCenter");
 		   
 		   //Home Button
@@ -292,6 +302,10 @@ public class App_View extends View<App_Model> {
 		   this.txtVName = new TextField();
 		   this.txtID = new TextField();
 		   
+		   this.addTfNumButton = new Button("+");
+		   this.addTfMailButton = new Button("+");
+		   
+		   
 		   this.cbGroup = new ComboBox<String>();
 		   this.cbGroup.setEditable(false);
 		  
@@ -310,23 +324,30 @@ public class App_View extends View<App_Model> {
 		   this.birthDate.getStyleClass().add("txtBirthDate");
 		   this.txtID.getStyleClass().add("txtID");
 		
+		   numBox = new VBox();
 		   
-		   
+		   mailBox = new VBox();
+		  
 		   listCenter.add(this.lbVName, 0, 0);
 		   listCenter.add(this.txtVName, 1, 0);
 		   listCenter.add(this.lbNName, 0, 1);
 		   listCenter.add(this.txtNName, 1, 1);
 		   listCenter.add(this.lbNumber, 0, 2);
-		   listCenter.add(this.txtNumber, 1, 2);
+		   listCenter.add(this.numBox, 1, 2);
+		   //Button
+		   listCenter.add(addTfNumButton, 2, 2);
+		   
 		   listCenter.add(this.lbBirthDate, 0, 3);
 		   listCenter.add(this.birthDate, 1, 3);
 		   listCenter.add(this.lbEmail, 0, 4);
-		   listCenter.add(this.txtEmail, 1, 4);
+		   listCenter.add(this.mailBox, 1, 4);
+		   //Button
+		   listCenter.add(addTfMailButton, 2, 4);
+		   
 		   listCenter.add(this.lbGroup, 0, 5);
 		   listCenter.add(this.cbGroup, 1, 5);
 		   listCenter.add(this.lbNotizen, 0, 6);
 		   listCenter.add(this.txtaNotizen, 1, 6);
-		   
 		   
 		   this.saveBar = new HBox();
 		   this.saveBar.getStyleClass().add("saveBar");
@@ -465,7 +486,6 @@ public class App_View extends View<App_Model> {
 		this.txtVName.setDisable(true);
 		this.txtNName.setDisable(true);
 		this.txtaNotizen.setDisable(true);
-		this.txtNumber.setDisable(true);
 		this.birthDate.setDisable(true);
 		this.cbGroup.setDisable(true);
 		this.txtEmail.setDisable(true);
@@ -476,11 +496,48 @@ public class App_View extends View<App_Model> {
 		this.txtVName.setDisable(false);
 		this.txtNName.setDisable(false);
 		this.txtaNotizen.setDisable(false);
-		this.txtNumber.setDisable(false);
 		this.birthDate.setDisable(false);
 		this.cbGroup.setDisable(false);
 		this.txtEmail.setDisable(false);
-		
 	}
 	
+	public void addTfNumView2(int n) {
+		TextField newTF = new TextField();
+		newTF.setText(Integer.toString(n));
+		tfNumArray[INDEXN] = newTF;
+		numBox.getChildren().add(newTF);
+		INDEXN++;
+	}
+	
+	public void addTfNumView() {
+		TextField newTF = new TextField();
+		tfNumArray[INDEXN] = newTF;
+		numBox.getChildren().add(newTF);
+		INDEXN++;
+	}
+	
+	public void updateTfNum() {
+		numBox.getChildren().clear();
+		INDEXN = 0;
+	}
+
+	public void addTfMailView2(String mail) {
+		TextField newTF = new TextField();
+		newTF.setText(mail);
+		tfMailArray[INDEXE] = newTF;
+		mailBox.getChildren().add(newTF);
+		INDEXE++;
+	}
+	
+	public void addTfMailView() {
+		TextField newTF = new TextField();
+		tfMailArray[INDEXE] = newTF;
+		mailBox.getChildren().add(newTF);
+		INDEXE++;
+	}
+	
+	public void updateTfMail() {
+		mailBox.getChildren().clear();
+		INDEXE = 0;
+	}
 }

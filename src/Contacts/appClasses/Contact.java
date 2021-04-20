@@ -1,5 +1,6 @@
 package Contacts.appClasses;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Contact implements Comparable <Contact>{
@@ -9,38 +10,26 @@ public class Contact implements Comparable <Contact>{
 	private static int IDNr = 0; 
 	private String vName;
 	private String nName; 
-	private String eMail;
+	private ArrayList<String> eMails;
 	private Date birthday;
 	private Group group;
-	private int phoneNumber;
+	private ArrayList<Integer> phoneNumbers;
 	private final int ID;
-	
 	
 	private static int getNextID() {
 		return ++IDNr;
 	}
 	
-	public Contact(String vName, String nName, String eMail, Group group, int phoneNumber) {
+	public Contact(String vName, String nName, ArrayList<String> eMails, Group group, Date birthday, ArrayList<Integer> phoneNumbers) {
 		this.ID = getNextID();
 		this.vName = vName;
 		this.nName = nName;
-		this.eMail = eMail;
-		this.group = group;
-		this.phoneNumber = phoneNumber;
-	}
-	
-	public Contact(String vName, String nName, String eMail, Group group, Date birthday, int phoneNumber) {
-		this.ID = getNextID();
-		this.vName = vName;
-		this.nName = nName;
-		this.eMail = eMail;
+		this.eMails = eMails;
 		this.group = group;
 		this.birthday = birthday;
-		this.phoneNumber = phoneNumber; 
-	} 
-
-
-
+		this.phoneNumbers = phoneNumbers;
+	}
+	
 	public String getvName() {
 		return vName;
 	}
@@ -56,23 +45,23 @@ public class Contact implements Comparable <Contact>{
 	public void setnName(String nName) {
 		this.nName = nName;
 	}
-
-	public String geteMail() {
-		return eMail;
-	}
-
-	public void seteMail(String eMail) {
-		this.eMail = eMail;
-	}
-
-	public int getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(int phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
 	
+	public ArrayList<String> geteMails() {
+		return eMails;
+	}
+
+	public void seteMails(ArrayList<String> eMails) {
+		this.eMails = eMails;
+	}
+
+	public ArrayList<Integer> getPhoneNumbers() {
+		return phoneNumbers;
+	}
+
+	public void setPhoneNumbers(ArrayList<Integer> phoneNumbers) {
+		this.phoneNumbers = phoneNumbers;
+	}
+
 	public int getID() {
 		return this.ID;
 	}
@@ -116,4 +105,5 @@ public class Contact implements Comparable <Contact>{
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
+	
 }

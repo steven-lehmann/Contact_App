@@ -15,6 +15,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.SelectionModel;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
@@ -102,6 +103,10 @@ public class App_Controller extends Controller<App_Model, App_View> {
         view.searchGroupButton.setOnAction(this::searchGroup);
         
         view.groupList.setOnMouseClicked(this::updateContactGroupVie);
+        
+        view.addTfNumButton.setOnAction(this::addTfNum);
+        
+        view.addTfMailButton.setOnAction(this::addTfMail);
      
     }
     
@@ -116,14 +121,13 @@ public class App_Controller extends Controller<App_Model, App_View> {
     
     private void showGroup(Event e) {
     	view.changeGroupView();
-    	
-    	
     }
     
 
 	private void updateContact(MouseEvent mouseevent1) {
 		view.changeContactView();
 		view.disableTextField();
+		
 		view.saveAndUpdateButton.setDisable(true);
 		view.saveAndUpdateButton.setVisible(false);
 		view.saveAndUpdateButton.setManaged(false);
@@ -158,8 +162,17 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		if (contact != null) {
 			view.txtVName.setText(contact.getvName());
 			view.txtNName.setText(contact.getnName());
-			view.txtEmail.setText(contact.geteMail());
-			view.txtNumber.setText("0"+Integer.toString(contact.getPhoneNumber()));
+			
+			ArrayList<String> mails = contact.geteMails();
+			for(String e : mails) {
+				view.addTfMailView2(e);
+			}
+			
+			ArrayList<Integer> numbers = contact.getPhoneNumbers();
+			for(int n : numbers) {
+				view.addTfNumView2(n);
+			}
+
 			view.cbGroup.setValue(contact.getGroup().name());
 			String birthday = model.formatter.format(contact.getBirthday());
 			LocalDate date = LocalDate.parse(birthday, model.LocalFormatter);
@@ -181,6 +194,8 @@ public class App_Controller extends Controller<App_Model, App_View> {
 
 	private void updateHome(Event e) {
 		view.backHome();
+		view.updateTfNum();
+		view.updateTfMail();
 		this.updateListView();
 		view.txtSearch.clear();
 	}
@@ -201,18 +216,41 @@ public class App_Controller extends Controller<App_Model, App_View> {
 	private void saveNewContact(Event e) throws ParseException {
 		String nName = view.txtNName.getText();
 		String vName = view.txtVName.getText();
-		String eMail = view.txtEmail.getText();
+		
+		ArrayList<String> eMails = new ArrayList<String>();
+		
+		for(int i = 0; i < App_View.INDEXE; i++) {
+			String arrayMail = view.tfMailArray[i].getText();
+			eMails.add(arrayMail);
+		}
+		
+		/*for(TextField tf : view.tfMailArray) {
+			eMails.add(tf.getText());
+		}*/
+		
 		String stringGroup = view.cbGroup.getSelectionModel().getSelectedItem();
 		Group group = Group.valueOf(stringGroup);
-		String phoneNum = view.txtNumber.getText();
-		int phoneNumber = Integer.parseInt(phoneNum);
+		
+		ArrayList<Integer> numbers = new ArrayList<Integer>();
+		
+		for(int i = 0; i < App_View.INDEXN; i++) {
+			String arrayNumber = view.tfNumArray[i].getText();
+			numbers.add(Integer.parseInt(arrayNumber));
+		}
+		
+		/*for(TextField tf : view.tfNumArray) {
+			numbers.add(Integer.parseInt(tf.getText()));
+		}*/
+		
 		LocalDate date = view.birthDate.getValue();
 		String dateString = date.format(model.LocalFormatter);
 		Date birthday = model.formatter.parse(dateString);
-		//
-		Contact contact = model.creatContact(vName, nName, eMail, group, birthday, phoneNumber);
+		
+		Contact contact = model.creatContact(vName, nName, eMails, group, birthday, numbers);
 		view.contactList.getItems().add(contact);
 		view.backHome();
+		view.updateTfNum();
+		view.updateTfMail();
 		model.saveContact();
 	}
 	
@@ -257,9 +295,25 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		Contact contact = model.getSelectedContacdID(contactID);
 		contact.setvName(view.txtVName.getText());
 		contact.setnName(view.txtNName.getText());
-		int phoneNum = Integer.parseInt(view.txtNumber.getText());
-		contact.setPhoneNumber(phoneNum);
-		contact.seteMail(view.txtEmail.getText());
+		
+		ArrayList<String> eMails = new ArrayList<String>();
+		
+			for(int i = 0; i < App_View.INDEXE; i++) {
+				String arrayMail = view.tfMailArray[i].getText();
+				eMails.add(arrayMail);
+			}
+			
+		contact.seteMails(eMails);
+		
+		ArrayList<Integer> numbers = new ArrayList<Integer>();
+			
+			for(int i = 0; i < App_View.INDEXN; i++) {
+				String arrayNumber = view.tfNumArray[i].getText();
+				numbers.add(Integer.parseInt(arrayNumber));
+			}
+			
+		contact.setPhoneNumbers(numbers);
+		
 		LocalDate date = view.birthDate.getValue();
 		System.out.println(date);
 		String dateString = date.format(model.LocalFormatter);
@@ -277,4 +331,14 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		view.updateButton.setDisable(false);
 		view.enableTextField();
 	}
+	
+	private void addTfNum(Event e) {
+		view.addTfNumView();
+	}
+	
+	private void addTfMail(Event e) {
+		view.addTfMailView();
+	}
+	
+	
 }
