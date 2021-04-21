@@ -346,6 +346,7 @@ public class App_View extends View<App_Model> {
 		   this.txtID.getStyleClass().add("txtID");
 		
 		   numBox = new VBox();
+
 		   
 		   mailBox = new VBox();
 		  
@@ -488,8 +489,9 @@ public class App_View extends View<App_Model> {
 	       this.cbGroup.getItems().addAll(t.getString("program.label.contact.comboBox.value.1"),
 	    		   t.getString("program.label.contact.comboBox.value.2"), 
 	    		   t.getString("program.label.contact.comboBox.value.3"));
+	       this.cbGroup.setPromptText(t.getString("program.center.group.cbox"));
 	       this.txtSearch.setPromptText(t.getString("program.center.txtbox.search"));
-           
+           this.cbGroup2.setPromptText(t.getString("program.center.group.cbox"));
            stage.setTitle(t.getString("program.name"));
 	    }
 	   

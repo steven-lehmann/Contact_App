@@ -138,6 +138,8 @@
 
 .lbContactForm{
 	-fx-font-size: 14px;
+	-fx-min-width: 80;
+	-fx-min-height: 20;
 }
 
 .txtContactForm{
