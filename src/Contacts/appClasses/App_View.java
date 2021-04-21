@@ -64,10 +64,12 @@ public class App_View extends View<App_Model> {
 	protected static Image ICONDELETE = new Image("/delete_red.png");
 	protected static Image ICONSEARCH = new Image("/search.png");
 	protected static Image ICONUPDATE = new Image("/double_tick.png");
+	protected static Image ICONADDNR = new Image("/plus.png");
+	protected static Image ICONADDEMAIL = new Image("/plus.png");
 	
 	
 	protected ImageView iconGroup, iconAdd, iconSave, iconHome, iconHomeGroup,
-			iconEdit, iconDelete, iconSearch, iconUpdateButton;
+			iconEdit, iconDelete, iconSearch, iconUpdateButton, iconPlusNR, iconPlusMail;
    
 	protected ComboBox<String> cbGroup;
 	
@@ -91,7 +93,7 @@ public class App_View extends View<App_Model> {
 	
 	protected BorderPane root, contactView, groupView;
 	
-	protected HBox buttonBar, searchBar, bottomBar, saveBar, homeBar;
+	protected HBox buttonBar, searchBar, searchBar2, bottomBar, saveBar, homeBar;
 	
 	protected VBox center, centerContact, centerGroup, numBox, mailBox;
 	
@@ -184,7 +186,6 @@ public class App_View extends View<App_Model> {
 	
 		   //Searchbar wird definiert
 		   this.txtSearch = new TextField();
-		   this.txtSearch.setPromptText("Vorname oder Nachname eingeben");
 		   this.txtSearch.getStyleClass().add("txtSearch");
 		   
 		   
@@ -303,9 +304,28 @@ public class App_View extends View<App_Model> {
 		   this.txtVName = new TextField();
 		   this.txtID = new TextField();
 		   
-		   this.addTfNumButton = new Button("+");
-		   this.addTfMailButton = new Button("+");
 		   
+		   //Button Plus Number
+		   this.addTfNumButton = new Button();
+		   this.addTfNumButton.getStyleClass().add("plusButton");
+		   
+		   
+		   //Button wird mit Bild ergänzt
+		   this.iconPlusNR = new ImageView(ICONADDNR);
+		   this.addTfNumButton.setGraphic(this.iconPlusNR);
+		   this.iconPlusNR.setFitHeight(30);
+		   this.iconPlusNR.setFitWidth(30);
+		   
+		   
+		   this.addTfMailButton = new Button();
+		   this.addTfMailButton.getStyleClass().add("plusButton");
+		   
+		   
+		   //Button wird mit Bild ergänzt
+		   this.iconPlusMail = new ImageView(ICONADDEMAIL);
+		   this.addTfMailButton.setGraphic(this.iconPlusMail);
+		   this.iconPlusMail.setFitHeight(30);
+		   this.iconPlusMail.setFitWidth(30);
 		   
 		   this.cbGroup = new ComboBox<String>();
 		   this.cbGroup.setEditable(false);
@@ -335,6 +355,7 @@ public class App_View extends View<App_Model> {
 		   listCenter.add(this.txtNName, 1, 1);
 		   listCenter.add(this.lbNumber, 0, 2);
 		   listCenter.add(this.numBox, 1, 2);
+		   
 		   //Button
 		   listCenter.add(addTfNumButton, 2, 2);
 		   
@@ -375,6 +396,8 @@ public class App_View extends View<App_Model> {
 		   this.contactView.setCenter(this.centerContact);
 		   this.contactView.setBottom(this.bottomBar);
 		   
+		   
+		   
 		   // GroupView
 		   this.groupView = new BorderPane();
 
@@ -395,12 +418,13 @@ public class App_View extends View<App_Model> {
 		   this.homeBar.getChildren().add(this.homeButtonGroup);
 		   
 	       this.centerGroup.getChildren().addAll(this.homeButtonGroup);
-	       this.groupView.setTop(this.centerGroup);
+	       
 	       
 	       // groupList
 	       
-	       groupList = new ListView<Contact>();
-	       this.contactList.getStyleClass().add("contactList");
+	       this.groupList = new ListView<Contact>();
+	       this.groupList.getStyleClass().add("contactList");
+	       VBox.setVgrow(this.groupList, Priority.ALWAYS);
 	       
 	       this.searchGroupButton = new Button();
 		   this.searchGroupButton.getStyleClass().add("searchButton");
@@ -420,14 +444,13 @@ public class App_View extends View<App_Model> {
 		   }
 		   */
 		   
-		   HBox searchBar2 = new HBox();
+		   this.searchBar2 = new HBox();
 		   
-		   searchBar2.getChildren().addAll(cbGroup2, searchGroupButton);
-		   
-		   groupView.setCenter(searchBar2);
-		   
-		   groupView.setBottom(groupList);
-		   
+		   this.searchBar2.getChildren().addAll(cbGroup2, searchGroupButton);
+
+		   this.centerGroup.getChildren().addAll(this.searchBar2, this.groupList);
+
+		   this.groupView.setCenter(this.centerGroup);
 		   
 	      
         updateTexts();
@@ -463,7 +486,7 @@ public class App_View extends View<App_Model> {
 	       this.cbGroup.getItems().addAll(t.getString("program.label.contact.comboBox.value.1"),
 	    		   t.getString("program.label.contact.comboBox.value.2"), 
 	    		   t.getString("program.label.contact.comboBox.value.3"));
-
+	       this.txtSearch.setPromptText(t.getString("program.center.txtbox.search"));
            
            stage.setTitle(t.getString("program.name"));
 	    }

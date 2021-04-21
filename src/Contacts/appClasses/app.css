@@ -159,3 +159,7 @@
 .centerGroup{
 	-fx-background-color: #dcdcdc;
 }
+
+.plusButton{
+	-fx-background-color: transparent;
+}
