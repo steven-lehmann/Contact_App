@@ -491,6 +491,8 @@ public class App_View extends View<App_Model> {
 		this.cbGroup.setDisable(true);
 		this.txtEmail.setDisable(true);
 		this.txtID.setDisable(true);
+		this.numBox.setDisable(true);
+		this.mailBox.setDisable(true);
 	}
 
 	public void enableTextField() {
@@ -500,6 +502,9 @@ public class App_View extends View<App_Model> {
 		this.birthDate.setDisable(false);
 		this.cbGroup.setDisable(false);
 		this.txtEmail.setDisable(false);
+		this.numBox.setDisable(false);
+		this.mailBox.setDisable(false);
+			
 	}
 	
 	public void addTfNumView2(int n) {

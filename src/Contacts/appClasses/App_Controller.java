@@ -295,6 +295,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		Contact contact = model.getSelectedContacdID(contactID);
 		contact.setvName(view.txtVName.getText());
 		contact.setnName(view.txtNName.getText());
+		contact.setGroup(Group.valueOf(view.cbGroup.getValue()));
 		
 		ArrayList<String> eMails = new ArrayList<String>();
 		
@@ -315,13 +316,9 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		contact.setPhoneNumbers(numbers);
 		
 		LocalDate date = view.birthDate.getValue();
-		System.out.println(date);
 		String dateString = date.format(model.LocalFormatter);
-		System.out.println(dateString);
 		Date birthday = model.formatter.parse(dateString);
-		System.out.println(birthday);
 		contact.setBirthday(birthday);
-		//
 		view.disableTextField();
 		view.updateButton.setDisable(true);
 		model.saveContact();
