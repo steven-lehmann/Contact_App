@@ -414,7 +414,7 @@ public class App_View extends View<App_Model> {
 		   this.iconHomeGroup.setFitWidth(30);
 		   
 		   this.homeBar = new HBox();
-		   this.homeBar.getStyleClass().add("homeBar");
+		   this.homeBar.getStyleClass().add("homeBarGroup");
 		   this.homeBar.getChildren().add(this.homeButtonGroup);
 		   
 	       this.centerGroup.getChildren().addAll(this.homeButtonGroup);
@@ -436,7 +436,8 @@ public class App_View extends View<App_Model> {
 		   this.iconSearch.setFitWidth(25);
 		   
 		   this.cbGroup2 = new ComboBox<Group>();
-		   cbGroup2.getItems().addAll(Group.values());
+		   this.cbGroup2.getItems().addAll(Group.values());
+		   this.cbGroup2.getStyleClass().add("cbGroup");
 		   
 		 /*  for(Contact c : model.treeContactList) {
 			  cbGroup2.getItems().add(c.getGroup());
@@ -445,6 +446,7 @@ public class App_View extends View<App_Model> {
 		   */
 		   
 		   this.searchBar2 = new HBox();
+		   this.searchBar2.getStyleClass().add("searchBarGroup");
 		   
 		   this.searchBar2.getChildren().addAll(cbGroup2, searchGroupButton);
 

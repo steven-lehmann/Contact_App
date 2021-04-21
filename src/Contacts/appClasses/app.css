@@ -81,7 +81,7 @@
 	-fx-padding: 5;
 }
 
-.homeBar{
+.homeBarGroup{
 	-fx-spacing: 10;
 	-fx-padding: 5;
 }
@@ -158,8 +158,22 @@
 
 .centerGroup{
 	-fx-background-color: #dcdcdc;
+	-fx-spacing: 10;
+	-fx-padding: 5;
 }
 
 .plusButton{
 	-fx-background-color: transparent;
+}
+
+.searchBarGroup{
+	-fx-spacing: 10;
+	-fx-padding: 5;
+	-fx-alignment: center-left;
+}
+
+.cbGroup{
+	-fx-min-width: 250;
+	-fx-min-height: 20;
+	-fx-font-size: 14px;
 }
