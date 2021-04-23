@@ -39,8 +39,6 @@ public class App_Model extends Model {
 	protected TreeSet<Contact> treeContactList = new TreeSet<Contact>();
 	
 
-	
-
     private int value;
     
     public App_Model() {
@@ -80,16 +78,24 @@ public class App_Model extends Model {
 		String number = attributes[5];
 		String[] numbers = number.split(SEPARATOR2);
 		ArrayList<Integer> alNumbers = this.readArrayNum(numbers);
+		String notes;
+		notes = attributes[6];
 
-		Contact contact = new Contact(vName, nName, alEmails, group, birthday, alNumbers);
+		Contact contact = new Contact(vName, nName, alEmails, group, birthday, alNumbers, notes);
 		return contact;
 	}
     
     private ArrayList<Integer> readArrayNum(String[] numbers) {
     	ArrayList<Integer> alNumbers = new ArrayList<Integer>();
+    	try {
+    	alNumbers = new ArrayList<Integer>();
     	for(int i = 0; i < numbers.length; i++) {
 			alNumbers.add(Integer.parseInt(numbers[i]));
 		}
+		
+    	}catch(Exception e) {
+    	}
+    	
 		return alNumbers;
 	}
 
@@ -129,22 +135,15 @@ public class App_Model extends Model {
 		
 		String line = contact.getvName() + SEPARATOR + contact.getnName() + SEPARATOR
 				+ concatEmails + SEPARATOR + contact.getGroup() + SEPARATOR 
-				+ formatter.format(contact.getBirthday()) + SEPARATOR + concatPhoneNumbers + SEPARATOR + "\n";
+				+ formatter.format(contact.getBirthday()) + SEPARATOR + concatPhoneNumbers + SEPARATOR + 
+				contact.getNotes() + SEPARATOR + "\n";
 		return line;
 	}
 
-	public int getValue() {
-        return value;
-    }
-    
-    public int incrementValue() {
-        value++;
-        serviceLocator.getLogger().info("Application model: value incremented to " + value);
-        return value;
-    }
 
-	public Contact creatContact(String vName, String nName, ArrayList<String> eMails, Group group, Date birthday, ArrayList<Integer> numbers) {
-		Contact contact = new Contact(vName, nName, eMails, group, birthday, numbers);
+	public Contact creatContact(String vName, String nName, ArrayList<String> eMails, Group group, Date birthday, 
+								ArrayList<Integer> numbers, String notes) {
+		Contact contact = new Contact(vName, nName, eMails, group, birthday, numbers, notes);
 		serviceLocator.getLogger().info("Create new Contact: " + contact);
 		treeContactList.add(contact);
 		return contact;

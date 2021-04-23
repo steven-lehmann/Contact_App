@@ -73,7 +73,7 @@ public class App_View extends View<App_Model> {
    
 	protected ComboBox<String> cbGroup;
 	
-	protected ComboBox<Group> cbGroup2;
+	protected ComboBox<String> cbGroup2;
 	
 	protected MenuBar menuBar;
 	
@@ -147,6 +147,7 @@ public class App_View extends View<App_Model> {
 					sl.getConfiguration().setLocalOption("Language", locale.getLanguage());
 	                sl.setTranslator(new Translator(locale.getLanguage()));
 	                this.cbGroup.getItems().removeAll(this.cbGroup.getItems());
+	                this.cbGroup2.getItems().removeAll(this.cbGroup2.getItems());
 	                updateTexts();
 	            });
 	        }
@@ -436,10 +437,9 @@ public class App_View extends View<App_Model> {
 		   this.iconSearch.setFitHeight(25);
 		   this.iconSearch.setFitWidth(25);
 		   
-		   this.cbGroup2 = new ComboBox<Group>();
-		   this.cbGroup2.getItems().addAll(Group.values());
+		   this.cbGroup2 = new ComboBox<String>();
+		  // this.cbGroup2.getItems().addAll(Group.values());
 		   this.cbGroup2.getStyleClass().add("cbGroup");
-		   
 		 /*  for(Contact c : model.treeContactList) {
 			  cbGroup2.getItems().add(c.getGroup());
 			  
@@ -489,9 +489,14 @@ public class App_View extends View<App_Model> {
 	       this.cbGroup.getItems().addAll(t.getString("program.label.contact.comboBox.value.1"),
 	    		   t.getString("program.label.contact.comboBox.value.2"), 
 	    		   t.getString("program.label.contact.comboBox.value.3"));
+	     //  this.cbGroup.getSelectionModel().getSelectedIndex();
+	       this.cbGroup2.getItems().addAll(t.getString("program.label.contact.comboBox.value.1"),
+	    		   t.getString("program.label.contact.comboBox.value.2"), 
+	    		   t.getString("program.label.contact.comboBox.value.3"));
 	       this.cbGroup.setPromptText(t.getString("program.center.group.cbox"));
 	       this.txtSearch.setPromptText(t.getString("program.center.txtbox.search"));
            this.cbGroup2.setPromptText(t.getString("program.center.group.cbox"));
+           this.txtaNotizen.setPromptText(t.getString("program.center.contact.notizen"));
            stage.setTitle(t.getString("program.name"));
 	    }
 	   
@@ -520,6 +525,8 @@ public class App_View extends View<App_Model> {
 		this.txtID.setDisable(true);
 		this.numBox.setDisable(true);
 		this.mailBox.setDisable(true);
+		this.addTfMailButton.setDisable(true);
+		this.addTfNumButton.setDisable(true);
 	}
 
 	public void enableTextField() {
@@ -531,12 +538,14 @@ public class App_View extends View<App_Model> {
 		this.txtEmail.setDisable(false);
 		this.numBox.setDisable(false);
 		this.mailBox.setDisable(false);
+		this.addTfMailButton.setDisable(false);
+		this.addTfNumButton.setDisable(false);
 			
 	}
 	
 	public void addTfNumView2(int n) {
 		TextField newTF = new TextField();
-		newTF.setText(Integer.toString(n));
+		newTF.setText("0" + Integer.toString(n));
 		tfNumArray[INDEXN] = newTF;
 		numBox.getChildren().add(newTF);
 		INDEXN++;

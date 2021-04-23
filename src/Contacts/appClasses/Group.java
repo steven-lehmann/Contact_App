@@ -2,7 +2,7 @@ package Contacts.appClasses;
 
 public enum Group {
 	
-	Familie, Freunde, Arbeit;
+	Familie, Family, Freunde, Friends, Arbeit, Work;
 	
 	public boolean contains(String searchString) {
 		return (this.name().contains(searchString));

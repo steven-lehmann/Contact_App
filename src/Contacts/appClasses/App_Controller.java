@@ -71,6 +71,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
         view.contactList.setOnMouseClicked(this::updateContact);
         
         view.homeButton.setOnAction(this::updateHome);
+        view.homeButtonGroup.setOnAction(this::updateHome);
         
         view.newButton.setOnAction(this::newContact);
         
@@ -110,14 +111,6 @@ public class App_Controller extends Controller<App_Model, App_View> {
      
     }
     
-    
-    
-    public void buttonClick() {
-        model.incrementValue();
-        String newText = Integer.toString(model.getValue());        
-
-       // view.lblNumber.setText(newText);        
-    }
     
     private void showGroup(Event e) {
     	view.changeGroupView();
@@ -162,7 +155,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		if (contact != null) {
 			view.txtVName.setText(contact.getvName());
 			view.txtNName.setText(contact.getnName());
-			
+			view.txtaNotizen.setText(contact.getNotes());
 			ArrayList<String> mails = contact.geteMails();
 			for(String e : mails) {
 				view.addTfMailView2(e);
@@ -186,6 +179,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 			view.cbGroup.setValue(null);
 			view.birthDate.setValue(LocalDate.now());
 			view.txtID.setText("");
+			//view.txtaNotizen.setText("notes");
 		}
 		
 	}
@@ -245,8 +239,8 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		LocalDate date = view.birthDate.getValue();
 		String dateString = date.format(model.LocalFormatter);
 		Date birthday = model.formatter.parse(dateString);
-		
-		Contact contact = model.creatContact(vName, nName, eMails, group, birthday, numbers);
+		String notes = view.txtaNotizen.getText();
+		Contact contact = model.creatContact(vName, nName, eMails, group, birthday, numbers, notes);
 		view.contactList.getItems().add(contact);
 		view.backHome();
 		view.updateTfNum();
@@ -279,7 +273,8 @@ public class App_Controller extends Controller<App_Model, App_View> {
 	}
 	
 	public void searchGroup(Event e) {
-		Group group = view.cbGroup2.getValue();
+		String g = view.cbGroup2.getValue();
+		Group group = Group.valueOf(g);
 		ArrayList<Contact> arrayGroup = model.getSelectedGroup(group);
 		view.groupList.getItems().clear();
 		for(Contact c : arrayGroup) {
@@ -322,6 +317,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		view.disableTextField();
 		view.updateButton.setDisable(true);
 		model.saveContact();
+		
 	}
 	
 	private void editContact(Event e) {
