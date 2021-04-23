@@ -48,7 +48,7 @@ public class App_View extends View<App_Model> {
 	
 	protected Button newButton, groupButton, saveAndUpdateButton, 
 			deleteButton, editButtton, homeButton, homeButtonGroup, searchButton, updateButton,
-			searchGroupButton, addTfNumButton, addTfMailButton;
+			searchGroupButton, addTfNumButton, addTfMailButton, validateMailButton;
 	
 	protected Label lbVName, lbNName, lbNumber, lbEmail, lbBirthDate, lbNotizen, lbGroup;
 	
@@ -85,6 +85,7 @@ public class App_View extends View<App_Model> {
 	
 	protected TextField[] tfMailArray = new TextField[20];
 	
+	
 	protected TextArea txtaNotizen;
 	
 	protected DatePicker birthDate;
@@ -95,7 +96,7 @@ public class App_View extends View<App_Model> {
 	
 	protected HBox buttonBar, searchBar, searchBar2, bottomBar, saveBar, homeBar;
 	
-	protected VBox center, centerContact, centerGroup, numBox, mailBox;
+	protected VBox center, centerContact, centerGroup, numBox, mailBox, validateMailBox;
 	
 	protected Scene scene1, scene2, scene3;
 	
@@ -239,6 +240,10 @@ public class App_View extends View<App_Model> {
 		   this.saveAndUpdateButton = new Button();
 		   this.saveAndUpdateButton.getStyleClass().add("saveButton");
 		   
+		 //Validate Button		   
+		   this.validateMailButton = new Button("Mail prüfen");
+		   this.validateMailButton.getStyleClass().add("validateMailButton");
+		   
 		   //Button wird mit Bild ergänzt
 		   this.iconSave = new ImageView(ICONSAVE);
 		   this.saveAndUpdateButton.setGraphic(this.iconSave);
@@ -347,15 +352,18 @@ public class App_View extends View<App_Model> {
 		   this.txtID.getStyleClass().add("txtID");
 		
 		   numBox = new VBox();
-
 		   
 		   mailBox = new VBox();
+		   
+		   validateMailBox = new VBox();
+		   validateMailBox.getChildren().addAll(this.lbEmail, this.validateMailButton);
 		  
 		   listCenter.add(this.lbVName, 0, 0);
 		   listCenter.add(this.txtVName, 1, 0);
 		   listCenter.add(this.lbNName, 0, 1);
 		   listCenter.add(this.txtNName, 1, 1);
 		   listCenter.add(this.lbNumber, 0, 2);
+		  
 		   listCenter.add(this.numBox, 1, 2);
 		   
 		   //Button
@@ -363,7 +371,7 @@ public class App_View extends View<App_Model> {
 		   
 		   listCenter.add(this.lbBirthDate, 0, 3);
 		   listCenter.add(this.birthDate, 1, 3);
-		   listCenter.add(this.lbEmail, 0, 4);
+		   listCenter.add(this.validateMailBox, 0, 4);
 		   listCenter.add(this.mailBox, 1, 4);
 		   //Button
 		   listCenter.add(addTfMailButton, 2, 4);
