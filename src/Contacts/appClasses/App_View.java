@@ -431,7 +431,7 @@ public class App_View extends View<App_Model> {
 	       
 	       
 	       // groupList
-	       
+	     
 	       this.groupList = new ListView<Contact>();
 	       this.groupList.getStyleClass().add("contactList");
 	       VBox.setVgrow(this.groupList, Priority.ALWAYS);
@@ -496,11 +496,12 @@ public class App_View extends View<App_Model> {
 	       this.lbGroup.setText(t.getString("program.label.contact.group"));
 	       this.cbGroup.getItems().addAll(t.getString("program.label.contact.comboBox.value.1"),
 	    		   t.getString("program.label.contact.comboBox.value.2"), 
-	    		   t.getString("program.label.contact.comboBox.value.3"));
-	     //  this.cbGroup.getSelectionModel().getSelectedIndex();
+	    		   t.getString("program.label.contact.comboBox.value.3"),
+	       			t.getString("program.label.contact.comboBox.value.4"));
 	       this.cbGroup2.getItems().addAll(t.getString("program.label.contact.comboBox.value.1"),
 	    		   t.getString("program.label.contact.comboBox.value.2"), 
-	    		   t.getString("program.label.contact.comboBox.value.3"));
+	    		   t.getString("program.label.contact.comboBox.value.3"),
+	       			t.getString("program.label.contact.comboBox.value.4"));
 	       this.cbGroup.setPromptText(t.getString("program.center.group.cbox"));
 	       this.txtSearch.setPromptText(t.getString("program.center.txtbox.search"));
            this.cbGroup2.setPromptText(t.getString("program.center.group.cbox"));
@@ -535,6 +536,7 @@ public class App_View extends View<App_Model> {
 		this.mailBox.setDisable(true);
 		this.addTfMailButton.setDisable(true);
 		this.addTfNumButton.setDisable(true);
+		this.validateMailButton.setVisible(false);
 	}
 
 	public void enableTextField() {
@@ -548,6 +550,7 @@ public class App_View extends View<App_Model> {
 		this.mailBox.setDisable(false);
 		this.addTfMailButton.setDisable(false);
 		this.addTfNumButton.setDisable(false);
+		this.validateMailButton.setVisible(true);
 			
 	}
 	

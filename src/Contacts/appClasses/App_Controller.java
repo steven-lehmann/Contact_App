@@ -13,9 +13,11 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
@@ -193,7 +195,6 @@ public class App_Controller extends Controller<App_Model, App_View> {
 			for(int n : numbers) {
 				view.addTfNumView2(n);
 			}
-
 			view.cbGroup.setValue(contact.getGroup().name());
 			String birthday = model.formatter.format(contact.getBirthday());
 			LocalDate date = LocalDate.parse(birthday, model.LocalFormatter);
@@ -206,7 +207,6 @@ public class App_Controller extends Controller<App_Model, App_View> {
 			view.txtEmail.setText("");
 			view.cbGroup.setValue(null);
 			view.birthDate.setValue(LocalDate.now());
-			view.txtID.setText("");
 		}
 		
 	}
@@ -224,6 +224,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 	private void newContact(Event e) {
 		view.changeContactView();
 		view.enableTextField();
+		view.validateMailButton.setVisible(false);
 		view.saveAndUpdateButton.setDisable(false);
 		view.saveAndUpdateButton.setVisible(true);
 		view.saveAndUpdateButton.setManaged(true);
@@ -235,6 +236,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 	}
 	
 	private void saveNewContact(Event e) throws ParseException {
+		try {
 		String nName = view.txtNName.getText();
 		String vName = view.txtVName.getText();
 		
@@ -255,9 +257,6 @@ public class App_Controller extends Controller<App_Model, App_View> {
 			String arrayNumber = view.tfNumArray[i].getText();
 			numbers.add(Integer.parseInt(arrayNumber));
 		}
-		
-		
-		
 		LocalDate date = view.birthDate.getValue();
 		String dateString = date.format(model.LocalFormatter);
 		Date birthday = model.formatter.parse(dateString);
@@ -268,6 +267,12 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		view.updateTfNum();
 		view.updateTfMail();
 		model.saveContact();
+		}catch (NullPointerException e2) {
+			Alert errorAlert = new Alert(AlertType.ERROR);
+			errorAlert.setHeaderText("Input not valid");
+			errorAlert.setContentText("Bitte alle Pflichtfelder korrekt ausfüllen!");
+			errorAlert.showAndWait();
+		}
 	}
 	
 	private void delete(Event e) {
@@ -348,10 +353,13 @@ public class App_Controller extends Controller<App_Model, App_View> {
 	
 	private void addTfNum(Event e) {
 		view.addTfNumView();
+		//view.cbGroup.getSelectionModel().select(1);
 	}
 	
 	private void addTfMail(Event e) {
+		//System.out.println(view.cbGroup.getSelectionModel().getSelectedIndex());
 		view.addTfMailView();
+		view.validateMailButton.setVisible(true);
 	}
 	
 	
