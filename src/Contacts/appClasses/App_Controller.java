@@ -29,6 +29,8 @@ import javafx.util.StringConverter;
  */
 public class App_Controller extends Controller<App_Model, App_View> {
     ServiceLocator serviceLocator;
+    
+    private static int INDEX = 0;
 
     public App_Controller(App_Model model, App_View view) {
         super(model, view);
@@ -51,22 +53,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
         serviceLocator = ServiceLocator.getServiceLocator();        
         serviceLocator.getLogger().info("Application controller initialized");
         
-        /*view.contactList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				view.changeContactView();
-				Contact contact = view.contactList.getSelectionModel().getSelectedItem();
-        		this.updateView(contact);
-				
-            	System.out.println("clicked on " + view.contactList.getSelectionModel().getSelectedItem());
-				
-			}
-			 private void updateView(Contact contact) {
-					// Auto-generated method stub
-					
-				}
-
-        });*/
+        view.validateMailButton.setOnAction(this::validateMail);
         
         view.contactList.setOnMouseClicked(this::updateContact);
         
@@ -110,14 +97,46 @@ public class App_Controller extends Controller<App_Model, App_View> {
      
     }
     
-    
-    
-    public void buttonClick() {
-        model.incrementValue();
-        String newText = Integer.toString(model.getValue());        
-
-       // view.lblNumber.setText(newText);        
+    private void validateMail(Event e) {
+    	for(int i = 0; i < App_View.INDEXE; i++) {
+			String arrayMail = view.tfMailArray[i].getText();
+			INDEX = i;
+			this.validateEMail(arrayMail);
+		}
     }
+  
+    protected void validateEMail(String newValue) {
+    	boolean valid = false;
+
+		// Split on '@': must give us two not-empty parts
+		String[] addressParts = newValue.split("@");
+		if (addressParts.length == 2 && !addressParts[0].isEmpty() && !addressParts[1].isEmpty()) {
+			// We want to split the domain on '.', but split does not give us an empty
+			// string, if the split-character is the last character in the string. So we
+			// first ensure that the string does not end with '.'
+			if (addressParts[1].charAt(addressParts[1].length() - 1) != '.') {
+				// Split domain on '.': must give us at least two parts.
+				// Each part must be at least two characters long
+				String[] domainParts = addressParts[1].split("\\.");
+				if (domainParts.length >= 2) {
+					valid = true;
+					for (String s : domainParts) {
+						if (s.length() < 2) valid = false;
+					}
+				}
+			}
+		}
+		
+		
+		view.tfMailArray[INDEX].getStyleClass().remove("emailNotOk");
+		view.tfMailArray[INDEX].getStyleClass().remove("emailOk");
+		if (valid) {
+			view.tfMailArray[INDEX].getStyleClass().add("emailOk");
+		} else {
+			view.tfMailArray[INDEX].getStyleClass().add("emailNotOk");
+		}
+		
+	}
     
     private void showGroup(Event e) {
     	view.changeGroupView();
@@ -223,11 +242,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 			String arrayMail = view.tfMailArray[i].getText();
 			eMails.add(arrayMail);
 		}
-		
-		/*for(TextField tf : view.tfMailArray) {
-			eMails.add(tf.getText());
-		}*/
-		
+	
 		String stringGroup = view.cbGroup.getSelectionModel().getSelectedItem();
 		Group group = Group.valueOf(stringGroup);
 		
@@ -237,10 +252,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 			String arrayNumber = view.tfNumArray[i].getText();
 			numbers.add(Integer.parseInt(arrayNumber));
 		}
-		
-		/*for(TextField tf : view.tfNumArray) {
-			numbers.add(Integer.parseInt(tf.getText()));
-		}*/
+	
 		
 		LocalDate date = view.birthDate.getValue();
 		String dateString = date.format(model.LocalFormatter);

@@ -64,6 +64,12 @@
 	-fx-border-color: #000000;
 }
 
+.validateMailButton{
+	-fx-padding: 10;
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+	-fx-border-color: #000000;
+}
 .searchBar{
 	-fx-spacing: 10;
 	-fx-padding: 5;
@@ -178,4 +184,12 @@
 	-fx-min-width: 250;
 	-fx-min-height: 20;
 	-fx-font-size: 14px;
+}
+
+.emailOk {
+  -fx-text-fill: green;
+}
+
+.emailNotOk {
+  -fx-text-fill: red;
 }
