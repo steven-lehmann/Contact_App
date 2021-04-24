@@ -21,6 +21,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
@@ -66,10 +67,11 @@ public class App_View extends View<App_Model> {
 	protected static Image ICONUPDATE = new Image("/double_tick.png");
 	protected static Image ICONADDNR = new Image("/plus.png");
 	protected static Image ICONADDEMAIL = new Image("/plus.png");
+	protected static Image ICONVERIFICATION = new Image("/mail.png");
 	
 	
 	protected ImageView iconGroup, iconAdd, iconSave, iconHome, iconHomeGroup,
-			iconEdit, iconDelete, iconSearch, iconUpdateButton, iconPlusNR, iconPlusMail;
+			iconEdit, iconDelete, iconSearch, iconUpdateButton, iconPlusNR, iconPlusMail, iconVerification;
    
 	protected ComboBox<String> cbGroup;
 	
@@ -85,7 +87,6 @@ public class App_View extends View<App_Model> {
 	
 	protected TextField[] tfMailArray = new TextField[20];
 	
-	
 	protected TextArea txtaNotizen;
 	
 	protected DatePicker birthDate;
@@ -96,12 +97,13 @@ public class App_View extends View<App_Model> {
 	
 	protected HBox buttonBar, searchBar, searchBar2, bottomBar, saveBar, homeBar;
 	
-	protected VBox center, centerContact, centerGroup, numBox, mailBox, validateMailBox;
+	protected VBox center, centerContact, centerGroup, numBox, mailBox, 
+		validateMailBox, numberLabelBox, addNumberBox, addMailBox;
 	
 	protected Scene scene1, scene2, scene3;
 	
 	protected GridPane listCenter;
-	
+		
 	protected static int INDEXE = 0;
 	protected static int INDEXN = 0;
 
@@ -223,8 +225,8 @@ public class App_View extends View<App_Model> {
 	   
 		   this.contactView = new BorderPane();
 		   
-		   listCenter = new GridPane();
-		   listCenter.getStyleClass().add("listCenter");
+		   this.listCenter = new GridPane();
+		   this.listCenter.getStyleClass().add("listCenter");
 		   
 		   //Home Button
 		   this.homeButton = new Button();
@@ -240,15 +242,24 @@ public class App_View extends View<App_Model> {
 		   this.saveAndUpdateButton = new Button();
 		   this.saveAndUpdateButton.getStyleClass().add("saveButton");
 		   
-		 //Validate Button		   
-		   this.validateMailButton = new Button("Mail prüfen");
-		   this.validateMailButton.getStyleClass().add("validateMailButton");
-		   
 		   //Button wird mit Bild ergänzt
 		   this.iconSave = new ImageView(ICONSAVE);
 		   this.saveAndUpdateButton.setGraphic(this.iconSave);
 		   this.iconSave.setFitHeight(30);
 		   this.iconSave.setFitWidth(30);
+		   
+		 
+		   //Validate Button		   
+		   this.validateMailButton = new Button();
+		   this.validateMailButton.getStyleClass().add("validateMailButton");
+		   
+		   
+		   //Button wird mit Bild ergänzt
+		   this.iconVerification = new ImageView(ICONVERIFICATION);
+		   this.validateMailButton.setGraphic(this.iconVerification);
+		   this.iconVerification.setFitHeight(30);
+		   this.iconVerification.setFitWidth(30);
+		   
 		   
 		   //Update Button
 		   this.updateButton = new Button();
@@ -351,30 +362,42 @@ public class App_View extends View<App_Model> {
 		   this.birthDate.getStyleClass().add("txtBirthDate");
 		   this.txtID.getStyleClass().add("txtID");
 		
-		   numBox = new VBox();
+		   this.numBox = new VBox();
 		   
-		   mailBox = new VBox();
+		   this.mailBox = new VBox();
 		   
-		   validateMailBox = new VBox();
-		   validateMailBox.getChildren().addAll(this.lbEmail, this.validateMailButton);
-		  
+		   this.validateMailBox = new VBox();
+		   this.validateMailBox.getStyleClass().add("mailBox");
+		   this.validateMailBox.getChildren().addAll(this.lbEmail, this.validateMailButton);
+		   
+		   
+		   this.numberLabelBox = new VBox();
+		   this.numberLabelBox.getChildren().add(this.lbNumber);
+		   
+		   this.addNumberBox = new VBox();
+		   this.addNumberBox.getChildren().add(this.addTfNumButton);
+		   
+		   this.addMailBox = new VBox();
+		   this.addMailBox.getChildren().add(this.addTfMailButton);
+		   
+
 		   listCenter.add(this.lbVName, 0, 0);
 		   listCenter.add(this.txtVName, 1, 0);
 		   listCenter.add(this.lbNName, 0, 1);
 		   listCenter.add(this.txtNName, 1, 1);
-		   listCenter.add(this.lbNumber, 0, 2);
+		   listCenter.add(this.numberLabelBox, 0, 2);
 		  
 		   listCenter.add(this.numBox, 1, 2);
 		   
 		   //Button
-		   listCenter.add(addTfNumButton, 2, 2);
+		   listCenter.add(addNumberBox, 2, 2);
 		   
 		   listCenter.add(this.lbBirthDate, 0, 3);
 		   listCenter.add(this.birthDate, 1, 3);
 		   listCenter.add(this.validateMailBox, 0, 4);
 		   listCenter.add(this.mailBox, 1, 4);
 		   //Button
-		   listCenter.add(addTfMailButton, 2, 4);
+		   listCenter.add(addMailBox, 2, 4);
 		   
 		   listCenter.add(this.lbGroup, 0, 5);
 		   listCenter.add(this.cbGroup, 1, 5);
@@ -387,7 +410,8 @@ public class App_View extends View<App_Model> {
 		   HBox spacer = new HBox();
 		   HBox.setHgrow(spacer, Priority.ALWAYS);
 		   
-		   this.saveBar.getChildren().addAll(this.homeButton, spacer, this.updateButton, this.saveAndUpdateButton);
+		   this.saveBar.getChildren().addAll(this.homeButton, spacer,
+				   this.updateButton, this.saveAndUpdateButton);
 		   
 		   
 		   this.bottomBar = new HBox();
@@ -399,7 +423,7 @@ public class App_View extends View<App_Model> {
 		   this.centerContact = new VBox();
 		   this.centerContact.getStyleClass().add("centerContact");
 		   VBox.setVgrow(listCenter, Priority.ALWAYS);
-		   
+		  
 		   
 		   this.centerContact.getChildren().addAll(this.saveBar, listCenter);
 
