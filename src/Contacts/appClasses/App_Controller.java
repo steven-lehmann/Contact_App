@@ -68,7 +68,6 @@ public class App_Controller extends Controller<App_Model, App_View> {
 			try {
 				saveNewContact(arg0);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
@@ -81,7 +80,6 @@ public class App_Controller extends Controller<App_Model, App_View> {
 			try {
 				refreshContact(arg0);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
@@ -112,15 +110,10 @@ public class App_Controller extends Controller<App_Model, App_View> {
 	protected void validateEMail(String newValue) {
 		boolean valid = false;
 
-		// Split on '@': must give us two not-empty parts
+
 		String[] addressParts = newValue.split("@");
 		if (addressParts.length == 2 && !addressParts[0].isEmpty() && !addressParts[1].isEmpty()) {
-			// We want to split the domain on '.', but split does not give us an empty
-			// string, if the split-character is the last character in the string. So we
-			// first ensure that the string does not end with '.'
 			if (addressParts[1].charAt(addressParts[1].length() - 1) != '.') {
-				// Split domain on '.': must give us at least two parts.
-				// Each part must be at least two characters long
 				String[] domainParts = addressParts[1].split("\\.");
 				if (domainParts.length >= 2) {
 					valid = true;
@@ -211,8 +204,6 @@ public class App_Controller extends Controller<App_Model, App_View> {
 
 	}
 
-
-
 	private void updateHome(Event e) {
 		view.backHome();
 		view.updateTfNum();
@@ -221,7 +212,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		view.txtSearch.clear();
 		view.cbGroup2.setValue(null);
 		view.groupList.getItems().clear();
-	
+
 	}
 
 	private void newContact(Event e) {
@@ -236,6 +227,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		view.updateButton.setVisible(false);
 		view.txtID.setDisable(true);
 		this.updateView(null);
+		view.txtaNotizen.setText("notes...");
 	}
 
 	private void saveNewContact(Event e) throws ParseException {
@@ -251,8 +243,6 @@ public class App_Controller extends Controller<App_Model, App_View> {
 			}
 
 			int group = view.cbGroup.getSelectionModel().getSelectedIndex();
-			//String stringGroup = view.cbGroup.getSelectionModel().getSelectedItem();
-			//Group group = Group.valueOf(stringGroup);
 
 			ArrayList<Integer> numbers = new ArrayList<Integer>();
 
@@ -260,6 +250,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 				String arrayNumber = view.tfNumArray[i].getText();
 				numbers.add(Integer.parseInt(arrayNumber));
 			}
+		
 			LocalDate date = view.birthDate.getValue();
 			String dateString = date.format(model.LocalFormatter);
 			Date birthday = model.formatter.parse(dateString);
@@ -273,7 +264,13 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		}catch (NullPointerException e2) {
 			Alert errorAlert = new Alert(AlertType.ERROR);
 			errorAlert.setHeaderText("Input not valid");
-			errorAlert.setContentText("");
+			errorAlert.setContentText("Please fill in all required fields");
+			errorAlert.showAndWait();
+		}
+		catch (NumberFormatException e2) {
+			Alert errorAlert = new Alert(AlertType.ERROR);
+			errorAlert.setHeaderText("Input not valid");
+			errorAlert.setContentText("After pressing the + button you have to insert a phonenumber");
 			errorAlert.showAndWait();
 		}
 	}
@@ -304,8 +301,6 @@ public class App_Controller extends Controller<App_Model, App_View> {
 
 	public void searchGroup(Event e) {
 		int groupIndex = view.cbGroup2.getSelectionModel().getSelectedIndex();
-		//String g = view.cbGroup2.getValue();
-		//Group group = Group.valueOf(g);
 		ArrayList<Contact> arrayGroup = model.getSelectedGroup(groupIndex);
 		view.groupList.getItems().clear();
 		for(Contact c : arrayGroup) {
@@ -316,6 +311,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 
 
 	private void refreshContact(Event e) throws ParseException {
+		try {
 		String ID = view.txtID.getText();
 		int contactID = Integer.parseInt(ID);
 		Contact contact = model.getSelectedContacdID(contactID);
@@ -331,12 +327,18 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		}
 
 		contact.seteMails(eMails);
-
+		
+		view.mailBox.getChildren().clear();
+		
 		ArrayList<Integer> numbers = new ArrayList<Integer>();
 
 		for(int i = 0; i < App_View.INDEXN; i++) {
 			String arrayNumber = view.tfNumArray[i].getText();
+			if(arrayNumber.isEmpty() != true) {
 			numbers.add(Integer.parseInt(arrayNumber));
+			//view.addTfNumView2(Integer.parseInt(arrayNumber));
+			}
+			
 		}
 
 		contact.setPhoneNumbers(numbers);
@@ -348,6 +350,11 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		view.disableTextField();
 		view.updateButton.setDisable(true);
 		model.saveContact();
+		
+		
+		}catch(NullPointerException e3) {
+			
+		}
 	}
 
 	private void editContact(Event e) {
@@ -357,11 +364,9 @@ public class App_Controller extends Controller<App_Model, App_View> {
 
 	private void addTfNum(Event e) {
 		view.addTfNumView();
-		//view.cbGroup.getSelectionModel().select(1);
 	}
 
 	private void addTfMail(Event e) {
-		//System.out.println(view.cbGroup.getSelectionModel().getSelectedIndex());
 		view.addTfMailView();
 		view.validateMailButton.setVisible(true);
 	}

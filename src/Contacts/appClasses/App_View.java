@@ -301,6 +301,7 @@ public class App_View extends View<App_Model> {
 		this.lbGroup = new Label();
 		this.lbNumber = new Label();
 		this.lbNotizen = new Label();
+		this.lbPflichtfeld = new Label();
 
 		//CSS Verküpfung Label
 
@@ -311,6 +312,7 @@ public class App_View extends View<App_Model> {
 		this.lbGroup.getStyleClass().add("lbContactForm");
 		this.lbNumber.getStyleClass().add("lbContactForm");
 		this.lbNotizen.getStyleClass().add("lbContactForm");
+		this.lbPflichtfeld.getStyleClass().add("lbContactFormPflichtfeld");
 
 
 		//Textfelder für das Formular
@@ -403,6 +405,7 @@ public class App_View extends View<App_Model> {
 		listCenter.add(this.cbGroup, 1, 5);
 		listCenter.add(this.lbNotizen, 0, 6);
 		listCenter.add(this.txtaNotizen, 1, 6);
+		listCenter.add(this.lbPflichtfeld, 0, 7);
 
 		this.saveBar = new HBox();
 		this.saveBar.getStyleClass().add("saveBar");
@@ -470,13 +473,7 @@ public class App_View extends View<App_Model> {
 		this.iconSearch.setFitWidth(25);
 
 		this.cbGroup2 = new ComboBox<String>();
-		// this.cbGroup2.getItems().addAll(Group.values());
 		this.cbGroup2.getStyleClass().add("cbGroup");
-		/*  for(Contact c : model.treeContactList) {
-			  cbGroup2.getItems().add(c.getGroup());
-
-		   }
-		 */
 
 		this.searchBar2 = new HBox();
 		this.searchBar2.getStyleClass().add("searchBarGroup");
@@ -498,10 +495,7 @@ public class App_View extends View<App_Model> {
 		scene3.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
 		return scene1;
 
-
 	}
-
-
 
 	protected void updateTexts() {
 		Translator t = ServiceLocator.getServiceLocator().getTranslator();
@@ -530,6 +524,7 @@ public class App_View extends View<App_Model> {
 		this.cbGroup2.setPromptText(t.getString("program.center.group.cbox"));
 		this.txtSearch.setPromptText(t.getString("program.center.txtbox.search"));
 		this.txtaNotizen.setPromptText(t.getString("program.center.contact.notizen"));
+		this.lbPflichtfeld.setText(t.getString("program.label.contact.pflicht"));
 		stage.setTitle(t.getString("program.name"));
 	}
 

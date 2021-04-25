@@ -59,14 +59,12 @@ public class App_Model extends Model {
 				line = fileIn.readLine();
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	private Contact readContact(String line) throws ParseException { //File import
+	private Contact readContact(String line) throws ParseException {
 		String [] attributes = line.split(SEPARATOR);
-
 		String vName = attributes[0];
 		String nName = attributes[1];
 		String eMail = attributes[2];
@@ -79,8 +77,10 @@ public class App_Model extends Model {
 		String[] numbers = number.split(SEPARATOR2);
 		ArrayList<Integer> alNumbers = this.readArrayNum(numbers);
 		String notes;
+		if(attributes[6].isEmpty() != true ) {
 		notes = attributes[6];
-
+		}else
+			notes = "notes...";
 		Contact contact = new Contact(vName, nName, alEmails, groupIndex, birthday, alNumbers, notes);
 		return contact;
 	}
@@ -107,7 +107,7 @@ public class App_Model extends Model {
 		return alEmails;
 	}
 
-	public void saveContact() { //save Contacts in File
+	public void saveContact() {
 		File contactFile = new File(CONTACT_FILE);
 		try(Writer out = new FileWriter(contactFile)) {
 			for(Contact contact : treeContactList) {
