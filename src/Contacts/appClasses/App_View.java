@@ -51,7 +51,7 @@ public class App_View extends View<App_Model> {
 	deleteButton, editButtton, homeButton, homeButtonGroup, searchButton, updateButton,
 	searchGroupButton, addTfNumButton, addTfMailButton, validateMailButton;
 
-	protected Label lbVName, lbNName, lbNumber, lbEmail, lbBirthDate, lbNotizen, lbGroup;
+	protected Label lbVName, lbNName, lbNumber, lbEmail, lbBirthDate, lbNotizen, lbGroup, lbPflichtfeld;
 
 	//Images für Buttons
 

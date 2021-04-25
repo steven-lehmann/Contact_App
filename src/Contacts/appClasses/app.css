@@ -65,7 +65,10 @@
 }
 
 .validateMailButton{
-	-fx-background-color: transparent;
+	-fx-padding: 5;
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+	-fx-border-color: #000000;
 }
 .searchBar{
 	-fx-spacing: 10;
@@ -142,6 +145,12 @@
 .lbContactForm{
 	-fx-font-size: 14px;
 	-fx-min-width: 100;
+	-fx-min-height: 20;
+}
+
+.lbContactFormPflichtfeld{
+	-fx-font-size: 12px;
+	-fx-min-width: 130;
 	-fx-min-height: 20;
 }
 

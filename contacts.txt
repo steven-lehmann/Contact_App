@@ -1,3 +1,3 @@
-Hofmann;Andreas;test@gmail.com,Test2@gmail.com ,;Familie;06.03.2017;12345,54321,11111,;notes...;
-Thomas;Feuz;Gertster.Joel@hotmail.com,;Arbeit;07.01.1998;789129394,;notes...;
-Beat;Hoffner;N@gmail.com,ho@gmail.com,;Freunde;20.04.2021;12345,54321,;notes...;
+Beat;Auriel;N@gmail.com,G@gmail.com,;1;20.04.1966;789123434,;notes...;
+Thomas;Feuz;Gertster.Joel@hotmail.com,;2;07.01.1998;789129394,;notes...;
+Beat;Hoffner;N@gmail.com,ho@gmail.com,;3;20.04.1966;789123434,;notes...;
