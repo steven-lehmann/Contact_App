@@ -1,4 +1,4 @@
 Christoph;Bitter;bitter.christoph@gmail.com,bitter.christoph@hotmail.com,;2;12.04.1995;794567899,795647381,;Später noch anrufen!;
 Helena;Fischer;;1;25.04.2021;792885566,;Leider keine Mail vorhanden.;
 Markus;Hinck;markus-hinck@protonmail.com,markus-hinck@yahoo.de,;0;22.04.1992;;Leider keine Nummer vorhanden;
-Johannes;Riesen;;3;14.04.1987;;Leider weder Nummer noch Mail vorhanden.;
+Johannes;Riesen;,;3;14.04.1987;;Leider weder Nummer noch Mail vorhanden.;

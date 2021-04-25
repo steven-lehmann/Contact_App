@@ -270,7 +270,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		catch (NumberFormatException e2) {
 			Alert errorAlert = new Alert(AlertType.ERROR);
 			errorAlert.setHeaderText("Input not valid");
-			errorAlert.setContentText("After pressing the + button you have to insert a phonenumber");
+			errorAlert.setContentText("After pressing the + button you have to insert a phonenumber without spaces");
 			errorAlert.showAndWait();
 		}
 	}
@@ -352,6 +352,12 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		
 		}catch(NullPointerException e3) {
 			
+		}
+		catch(NumberFormatException e3) {
+			Alert errorAlert = new Alert(AlertType.ERROR);
+			errorAlert.setHeaderText("Input not valid");
+			errorAlert.setContentText("Please fill in the phonenumbers without spaces");
+			errorAlert.showAndWait();
 		}
 	}
 
