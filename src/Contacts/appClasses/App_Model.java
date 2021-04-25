@@ -34,45 +34,45 @@ public class App_Model extends Model {
 	protected SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 	protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-	
+
 	ServiceLocator serviceLocator;
 	protected TreeSet<Contact> treeContactList = new TreeSet<Contact>();
-	
 
-    private int value;
-    
-    public App_Model() {
-    	value = 0;
-        serviceLocator = ServiceLocator.getServiceLocator();        
-        serviceLocator.getLogger().info("Application model initialized");
-        
-    }
-    
-    public void readFile() {
-    	File contactFile = new File(CONTACT_FILE);
-    	try(Reader inReader = new FileReader(contactFile)) {
-    		BufferedReader fileIn = new BufferedReader(inReader);
-    		String line = fileIn.readLine(); // Zeile lesen
-    		while(line != null) {
-    			Contact contact = readContact(line);
-    			treeContactList.add(contact);
-    			line = fileIn.readLine();
-    		}
-    	} catch (Exception e) {
+
+	private int value;
+
+	public App_Model() {
+		value = 0;
+		serviceLocator = ServiceLocator.getServiceLocator();        
+		serviceLocator.getLogger().info("Application model initialized");
+
+	}
+
+	public void readFile() {
+		File contactFile = new File(CONTACT_FILE);
+		try(Reader inReader = new FileReader(contactFile)) {
+			BufferedReader fileIn = new BufferedReader(inReader);
+			String line = fileIn.readLine(); // Zeile lesen
+			while(line != null) {
+				Contact contact = readContact(line);
+				treeContactList.add(contact);
+				line = fileIn.readLine();
+			}
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
-    
-    private Contact readContact(String line) throws ParseException { //File import
+	}
+
+	private Contact readContact(String line) throws ParseException { //File import
 		String [] attributes = line.split(SEPARATOR);
-		
+
 		String vName = attributes[0];
 		String nName = attributes[1];
 		String eMail = attributes[2];
 		String[] eMails = eMail.split(SEPARATOR2);
 		ArrayList<String> alEmails = this.readMailsArray(eMails);
-		Group group = Group.valueOf(attributes[3]);
+		int groupIndex = Integer.parseInt(attributes[3]);
 		String date = attributes[4];
 		Date birthday = formatter.parse(date);
 		String number = attributes[5];
@@ -81,26 +81,26 @@ public class App_Model extends Model {
 		String notes;
 		notes = attributes[6];
 
-		Contact contact = new Contact(vName, nName, alEmails, group, birthday, alNumbers, notes);
+		Contact contact = new Contact(vName, nName, alEmails, groupIndex, birthday, alNumbers, notes);
 		return contact;
 	}
-    
-    private ArrayList<Integer> readArrayNum(String[] numbers) {
-    	ArrayList<Integer> alNumbers = new ArrayList<Integer>();
-    	try {
-    	alNumbers = new ArrayList<Integer>();
-    	for(int i = 0; i < numbers.length; i++) {
-			alNumbers.add(Integer.parseInt(numbers[i]));
+
+	private ArrayList<Integer> readArrayNum(String[] numbers) {
+		ArrayList<Integer> alNumbers = new ArrayList<Integer>();
+		try {
+			alNumbers = new ArrayList<Integer>();
+			for(int i = 0; i < numbers.length; i++) {
+				alNumbers.add(Integer.parseInt(numbers[i]));
+			}
+
+		}catch(Exception e) {
 		}
-		
-    	}catch(Exception e) {
-    	}
-    	
+
 		return alNumbers;
 	}
 
 	private ArrayList<String> readMailsArray(String[] eMails) {
-    	ArrayList<String> alEmails = new ArrayList<String>();
+		ArrayList<String> alEmails = new ArrayList<String>();
 		for(int i = 0; i < eMails.length; i++) {
 			alEmails.add(eMails[i]);
 		}
@@ -108,16 +108,16 @@ public class App_Model extends Model {
 	}
 
 	public void saveContact() { //save Contacts in File
-    	File contactFile = new File(CONTACT_FILE);
-    	try(Writer out = new FileWriter(contactFile)) {
-    		for(Contact contact : treeContactList) {
-    			String line = writeContact(contact);
-    			out.write(line);
-    		}
-    	} catch (Exception e) {
+		File contactFile = new File(CONTACT_FILE);
+		try(Writer out = new FileWriter(contactFile)) {
+			for(Contact contact : treeContactList) {
+				String line = writeContact(contact);
+				out.write(line);
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    }
+	}
 
 	private String writeContact(Contact contact) {
 		ArrayList<String> eMails = contact.geteMails();
@@ -125,14 +125,14 @@ public class App_Model extends Model {
 		for(String e : eMails) {
 			concatEmails += e + ",";
 		}
-		
+
 		ArrayList<Integer> numbers = contact.getPhoneNumbers();
 		String concatPhoneNumbers = "";
 		for(int n : numbers) {
 			String tempString = Integer.toString(n);
 			concatPhoneNumbers += tempString + ",";
 		}
-		
+
 		String line = contact.getvName() + SEPARATOR + contact.getnName() + SEPARATOR
 				+ concatEmails + SEPARATOR + contact.getGroup() + SEPARATOR 
 				+ formatter.format(contact.getBirthday()) + SEPARATOR + concatPhoneNumbers + SEPARATOR + 
@@ -141,13 +141,13 @@ public class App_Model extends Model {
 	}
 
 
-	public Contact creatContact(String vName, String nName, ArrayList<String> eMails, Group group, Date birthday, 
-								ArrayList<Integer> numbers, String notes) {
-		Contact contact = new Contact(vName, nName, eMails, group, birthday, numbers, notes);
+	public Contact creatContact(String vName, String nName, ArrayList<String> eMails, int groupIndex, Date birthday, 
+			ArrayList<Integer> numbers, String notes) {
+		Contact contact = new Contact(vName, nName, eMails, groupIndex, birthday, numbers, notes);
 		serviceLocator.getLogger().info("Create new Contact: " + contact);
 		treeContactList.add(contact);
 		return contact;
-		
+
 	}
 
 	public Contact getSelectedContact(String name) {
@@ -172,15 +172,16 @@ public class App_Model extends Model {
 		return contact;
 	}
 
-	public ArrayList<Contact> getSelectedGroup(Group group) {
+	public ArrayList<Contact> getSelectedGroup(int group) {
 		ArrayList<Contact> groupArrayList = new ArrayList<Contact>();
 		for(Contact c : treeContactList)
-			if(c.getGroup().equals(group)) {
+			if(c.getGroup() == group) {
 				groupArrayList.add(c);
 			}
 		return groupArrayList;
 	}
-	
-	
-	
+
+
+
+
 }

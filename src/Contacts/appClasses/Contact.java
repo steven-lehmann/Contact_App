@@ -12,7 +12,7 @@ public class Contact implements Comparable <Contact>{
 	private String nName; 
 	private ArrayList<String> eMails;
 	private Date birthday;
-	private Group group;
+	private int groupIndex;
 	private ArrayList<Integer> phoneNumbers;
 	private final int ID;
 	private String notes;
@@ -21,13 +21,13 @@ public class Contact implements Comparable <Contact>{
 		return ++IDNr;
 	}
 	
-	public Contact(String vName, String nName, ArrayList<String> eMails, Group group, Date birthday, 
+	public Contact(String vName, String nName, ArrayList<String> eMails, int groupIndex, Date birthday, 
 			ArrayList<Integer> phoneNumbers, String notes) {
 		this.ID = getNextID();
 		this.vName = vName;
 		this.nName = nName;
 		this.eMails = eMails;
-		this.group = group;
+		this.groupIndex = groupIndex;
 		this.birthday = birthday;
 		this.phoneNumbers = phoneNumbers;
 		this.notes = notes;
@@ -94,12 +94,12 @@ public class Contact implements Comparable <Contact>{
 			return false;
 	}
 
-	public Group getGroup() {
-		return group;
+	public int getGroup() {
+		return groupIndex;
 	}
 
-	public void setGroup(Group group) {
-		this.group = group;
+	public void setGroup(int groupIndex) {
+		this.groupIndex = groupIndex;
 	}
 
 	public Date getBirthday() {
