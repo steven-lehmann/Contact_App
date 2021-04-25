@@ -148,6 +148,12 @@
 	-fx-min-height: 20;
 }
 
+.lbContactFormPflichtfeld{
+	-fx-font-size: 12px;
+	-fx-min-width: 130;
+	-fx-min-height: 20;
+}
+
 .txtContactForm{
 	-fx-font-size: 14px;
 }

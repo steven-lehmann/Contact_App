@@ -51,7 +51,7 @@ public class App_View extends View<App_Model> {
 			deleteButton, editButtton, homeButton, homeButtonGroup, searchButton, updateButton,
 			searchGroupButton, addTfNumButton, addTfMailButton, validateMailButton;
 	
-	protected Label lbVName, lbNName, lbNumber, lbEmail, lbBirthDate, lbNotizen, lbGroup;
+	protected Label lbVName, lbNName, lbNumber, lbEmail, lbBirthDate, lbNotizen, lbGroup, lbPflichtfeld;
 	
 	//Images für Buttons
 	
@@ -301,6 +301,7 @@ public class App_View extends View<App_Model> {
 		   this.lbGroup = new Label();
 		   this.lbNumber = new Label();
 		   this.lbNotizen = new Label();
+		   this.lbPflichtfeld = new Label();
 		   
 		   //CSS Verküpfung Label
 		   
@@ -311,7 +312,7 @@ public class App_View extends View<App_Model> {
 		   this.lbGroup.getStyleClass().add("lbContactForm");
 		   this.lbNumber.getStyleClass().add("lbContactForm");
 		   this.lbNotizen.getStyleClass().add("lbContactForm");
-		   
+		   this.lbPflichtfeld.getStyleClass().add("lbContactFormPflichtfeld");
 		   
 		   //Textfelder für das Formular
 		   this.txtaNotizen = new TextArea();
@@ -403,6 +404,7 @@ public class App_View extends View<App_Model> {
 		   listCenter.add(this.cbGroup, 1, 5);
 		   listCenter.add(this.lbNotizen, 0, 6);
 		   listCenter.add(this.txtaNotizen, 1, 6);
+		   listCenter.add(this.lbPflichtfeld, 0, 7);
 		   
 		   this.saveBar = new HBox();
 		   this.saveBar.getStyleClass().add("saveBar");
@@ -530,6 +532,7 @@ public class App_View extends View<App_Model> {
 	       this.txtSearch.setPromptText(t.getString("program.center.txtbox.search"));
            this.cbGroup2.setPromptText(t.getString("program.center.group.cbox"));
            this.txtaNotizen.setPromptText(t.getString("program.center.contact.notizen"));
+           this.lbPflichtfeld.setText(t.getString("program.label.contact.pflicht"));
            stage.setTitle(t.getString("program.name"));
 	    }
 	   
