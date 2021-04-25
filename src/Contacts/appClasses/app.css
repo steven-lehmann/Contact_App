@@ -65,7 +65,10 @@
 }
 
 .validateMailButton{
-	-fx-background-color: transparent;
+	-fx-padding: 5;
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+	-fx-border-color: #000000;
 }
 .searchBar{
 	-fx-spacing: 10;
