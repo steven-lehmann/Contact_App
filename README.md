@@ -11,11 +11,12 @@ Features:
 3.2 Allow zero or more email addresses (flexible number)
 4.UI with CRUD
 5.0 Adding People to groups
-5.1 "Gorup View" to search people in selceted groups
-6. search Button on Homescreen (search Contact with Surname/Name)
+5.1 "Gorup View" 
+5.2 search people in selceted groups
+6.0 search Button on Homescreen (search Contact with Surname/Name)
 7.0 Good user interface 
-7.1 user feedback on mail entry
+7.1 user feedback on mail entry (with Button)
 7.2 CSS
-7.2 Activate/de-activate controls as appropriate
-7.3 Popups
+7.3 Activate/de-activate controls as appropriate
+7.4 Popups
 8.Save data to disk
