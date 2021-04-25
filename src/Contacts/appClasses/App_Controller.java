@@ -322,13 +322,12 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		ArrayList<String> eMails = new ArrayList<String>();
 
 		for(int i = 0; i < App_View.INDEXE; i++) {
-			String arrayMail = view.tfMailArray[i].getText();
-			eMails.add(arrayMail);
+			String stringMail = view.tfMailArray[i].getText();
+			if(stringMail.isEmpty() != true) {
+			eMails.add(stringMail);
+			}
 		}
-
 		contact.seteMails(eMails);
-		
-		view.mailBox.getChildren().clear();
 		
 		ArrayList<Integer> numbers = new ArrayList<Integer>();
 
@@ -336,7 +335,7 @@ public class App_Controller extends Controller<App_Model, App_View> {
 			String arrayNumber = view.tfNumArray[i].getText();
 			if(arrayNumber.isEmpty() != true) {
 			numbers.add(Integer.parseInt(arrayNumber));
-			//view.addTfNumView2(Integer.parseInt(arrayNumber));
+			
 			}
 			
 		}
@@ -349,7 +348,6 @@ public class App_Controller extends Controller<App_Model, App_View> {
 		contact.setBirthday(birthday);
 		view.disableTextField();
 		view.updateButton.setDisable(true);
-		model.saveContact();
 		
 		
 		}catch(NullPointerException e3) {
